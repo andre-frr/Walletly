@@ -5,7 +5,8 @@
     <string name="str_saldo">Saldo Total</string>
     <string name="str_receitas">Receitas</string>
     <string name="str_despesas">Despesas</string>
-    <string name="str_recentes">Movimentos Recentes</string>
     <string name="str_default">0.00 €</string>
     <string name="str_adicionar">Adicionar Receitas ou Despesas</string>
+    <string name="str_grafico_mensal">Gráfico Mensal</string>
+    <string name="str_movimentos">Movimentos</string>
 </resources>

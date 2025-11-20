@@ -11,6 +11,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
+    public final static String STAMP = "@MainActivity";
+
     //Membros de Dados
     MaterialCardView mCardSaldo, mCardMovRecentes;
     TextView mTvEuros;
