@@ -7,4 +7,5 @@
     <string name="str_despesas">Despesas</string>
     <string name="str_recentes">Movimentos Recentes</string>
     <string name="str_default">0.00 €</string>
+    <string name="str_adicionar">Adicionar Receitas ou Despesas</string>
 </resources>
