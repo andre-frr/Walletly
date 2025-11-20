@@ -18,5 +18,10 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
          */
+
+        init();
+    }
+
+    void init() {
     }
 }

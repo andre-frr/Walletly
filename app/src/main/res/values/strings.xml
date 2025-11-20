@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Walletly</string>
+
+    <!-- MainActivity -->
+    <string name="str_saldo">Saldo Total</string>
+    <string name="str_receitas">Receitas</string>
+    <string name="str_despesas">Despesas</string>
+    <string name="str_recentes">Movimentos Recentes</string>
+    <string name="str_default">0.00 €</string>
 </resources>
