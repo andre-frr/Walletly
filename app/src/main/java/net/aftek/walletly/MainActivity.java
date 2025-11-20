@@ -1,5 +1,6 @@
 package net.aftek.walletly;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -14,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     public final static String STAMP = "@MainActivity";
 
     //Membros de Dados
-    MaterialCardView mCardSaldo, mCardMovRecentes;
+    MaterialCardView mCardSaldo, mCardMovimentos;
     TextView mTvEuros;
     ListView mLvMovRecentes;
     FloatingActionButton mFABAdicionar;
@@ -38,12 +39,21 @@ public class MainActivity extends AppCompatActivity {
     void init() {
         //Associações
         mCardSaldo = findViewById(R.id.idCardSaldo);
-        mCardMovRecentes = findViewById(R.id.idCardMovRecentes);
+        mCardMovimentos = findViewById(R.id.idCardMovimentos);
         mTvEuros = findViewById(R.id.idTvEuros);
         mLvMovRecentes = findViewById(R.id.idLvMovRecentes);
         mFABAdicionar = findViewById(R.id.idFABAdicionar);
 
         //Comportamentos
+        mCardSaldo.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, MonthlySumActivity.class);
+            startActivity(intent);
+        });
 
+        mCardMovimentos.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+            startActivity(intent);
+
+        });
     }
 }

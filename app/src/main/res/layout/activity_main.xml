@@ -28,7 +28,7 @@
             android:gravity="center_horizontal"
             android:text="@string/app_name"
             android:textColor="@android:color/black"
-            android:textSize="28sp"
+            android:textSize="40sp"
             android:textStyle="bold" />
 
         <!-- Card: Saldo Total -->
@@ -74,7 +74,7 @@
 
         <!-- Card: Movimentos Recentes -->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/idCardMovRecentes"
+            android:id="@+id/idCardMovimentos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -85,7 +85,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="390dp"
+                android:layout_height="377dp"
                 android:orientation="vertical"
                 android:padding="16dp">
 
