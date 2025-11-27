@@ -19,6 +19,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageButton
+            android:id="@+id/idIbBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_arrow_backward"
+            android:contentDescription="@string/str_ib_back"
+            android:layout_marginBottom="16dp" />
+
         <!-- Card: Income & Expenses Summary -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -47,7 +56,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/stack_sans_notch"
                         android:gravity="center_horizontal"
-                        android:text="@string/str_receitas"
+                        android:text="@string/str_tv_receitas"
                         android:textColor="@color/text_secondary"
                         android:textSize="20sp" />
 
@@ -58,7 +67,7 @@
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/stack_sans_notch"
                         android:gravity="center_horizontal"
-                        android:text="@string/str_default"
+                        android:text="@string/str_tv_default"
                         android:textColor="@color/income_green"
                         android:textSize="32sp"
                         android:textStyle="bold" />
@@ -76,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/stack_sans_notch"
                         android:gravity="center_horizontal"
-                        android:text="@string/str_despesas"
+                        android:text="@string/str_tv_despesas"
                         android:textColor="@color/text_secondary"
                         android:textSize="20sp" />
 
@@ -87,7 +96,7 @@
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/stack_sans_notch"
                         android:gravity="center_horizontal"
-                        android:text="@string/str_default"
+                        android:text="@string/str_tv_default"
                         android:textColor="@color/expense_red"
                         android:textSize="32sp"
                         android:textStyle="bold" />
@@ -119,7 +128,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/stack_sans_notch"
                     android:gravity="center_horizontal"
-                    android:text="@string/str_grafico_mensal"
+                    android:text="@string/str_tv_chart"
                     android:textColor="@color/text_primary"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -156,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/stack_sans_notch"
                     android:gravity="center_horizontal"
-                    android:text="@string/str_movimentos"
+                    android:text="@string/str_tv_movimentos"
                     android:textColor="@color/text_primary"
                     android:textSize="24sp"
                     android:textStyle="bold" />

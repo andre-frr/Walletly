@@ -3,6 +3,7 @@ package net.aftek.walletly;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void init() {
+
         //Associações
         mCardSaldo = findViewById(R.id.idCardSaldo);
         mCardMovimentos = findViewById(R.id.idCardMovimentos);
@@ -53,7 +55,26 @@ public class MainActivity extends AppCompatActivity {
         mCardMovimentos.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
             startActivity(intent);
+        });
 
+        mFABAdicionar.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(MainActivity.this, mFABAdicionar);
+            popupMenu.getMenu().add("Receita");
+            popupMenu.getMenu().add("Despesa");
+
+            popupMenu.setOnMenuItemClickListener(item -> {
+                if (item.getTitle().equals("Receita")) {
+                    Intent intent = new Intent(MainActivity.this, AddIncomeActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else if (item.getTitle().equals("Despesa")) {
+                    Intent intent = new Intent(MainActivity.this, AddExpenseActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            });
+            popupMenu.show();
         });
     }
 }

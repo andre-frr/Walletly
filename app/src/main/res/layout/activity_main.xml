@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/stack_sans_notch"
                     android:gravity="center_horizontal"
-                    android:text="@string/str_saldo"
+                    android:text="@string/str_tv_saldo"
                     android:textColor="@color/text_secondary"
                     android:textSize="20sp" />
 
@@ -64,7 +64,7 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/stack_sans_notch"
                     android:gravity="center_horizontal"
-                    android:text="@string/str_default"
+                    android:text="@string/str_tv_default"
                     android:textColor="@color/text_primary"
                     android:textSize="48sp"
                     android:textStyle="bold" />
@@ -94,11 +94,12 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/stack_sans_notch"
                     android:gravity="center_horizontal"
-                    android:text="@string/str_movimentos"
+                    android:text="@string/str_tv_movimentos"
                     android:textColor="@color/text_primary"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
+                <!-- List View: Movimentos Recentes -->
                 <ListView
                     android:id="@+id/idLvMovRecentes"
                     android:layout_width="match_parent"
@@ -115,7 +116,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:contentDescription="@string/str_adicionar"
+        android:contentDescription="@string/str_fab_adicionar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add"

@@ -2,15 +2,16 @@
     <string name="app_name">Walletly</string>
 
     <!-- MainActivity -->
-    <string name="str_saldo">Saldo Total</string>
-    <string name="str_default">0.00 €</string>
-    <string name="str_movimentos">Movimentos</string>
-    <string name="str_adicionar">Adicionar Receitas ou Despesas</string>
+    <string name="str_tv_saldo">Saldo Total</string>
+    <string name="str_tv_default">0.00 €</string>
+    <string name="str_tv_movimentos">Movimentos</string>
+    <string name="str_fab_adicionar">Adicionar Receitas ou Despesas</string>
 
     <!-- MonthlySumActivity -->
-    <string name="str_receitas">Receitas</string>
-    <string name="str_despesas">Despesas</string>
-    <string name="str_grafico_mensal">Gráfico Mensal</string>
+    <string name="str_tv_receitas">Receitas</string>
+    <string name="str_tv_despesas">Despesas</string>
+    <string name="str_tv_chart">Gráfico Mensal</string>
+    <string name="str_ib_back">Voltar para trás</string>
 
     <!-- History Activity -->
 
