@@ -1,25 +1,29 @@
 <resources>
     <string name="app_name">Walletly</string>
 
-    <!-- MainActivity -->
+    <!-- activity_main.xml strings -->
     <string name="str_tv_saldo">Saldo Total</string>
     <string name="str_tv_default">0.00 €</string>
     <string name="str_tv_movimentos">Movimentos</string>
     <string name="str_fab_adicionar">Adicionar Receitas ou Despesas</string>
 
-    <!-- MonthlySumActivity -->
+    <!-- activity_monthly_sum.xml strings -->
     <string name="str_tv_receitas">Receitas</string>
     <string name="str_tv_despesas">Despesas</string>
     <string name="str_tv_chart">Gráfico Mensal</string>
     <string name="str_ib_back">Voltar para trás</string>
 
-    <!-- History Activity -->
+    <!-- activity_add_income.xml strings -->
+    <string name="str_et_valor_receita">Valor da Receita</string>
+    <string name="str_et_desc_receita">Descrição da Receita</string>
+    <string name="str_btn_guardar">Guardar</string>
 
+    <!-- activity_add_expense.xml strings -->
+    <string name="str_et_valor_despesa">Valor da Despesa</string>
+    <string name="str_et_desc_despesa">Descrição da Despesa</string>
 
-    <!-- AddIncome Activity -->
-
-
-    <!-- AddExpense Activity -->
+    <!-- history_item.xml strings -->
+    <string name="str_tv_data">Data</string>
 
 
 </resources>

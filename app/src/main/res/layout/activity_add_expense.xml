@@ -9,4 +9,61 @@
     android:fitsSystemWindows="true"
     tools:context=".AddExpenseActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/idIbBack2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/str_ib_back"
+            android:src="@drawable/ic_arrow_backward" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/stack_sans_notch"
+            android:text="@string/str_tv_despesas"
+            android:textColor="@color/text_primary"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/idEtValorDespesa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:padding="12dp"
+            android:hint="@string/str_et_valor_despesa"
+            android:inputType="numberDecimal"
+            android:background="@drawable/res_et_outline" />
+
+        <EditText
+            android:id="@+id/idEtDescDespesa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:padding="12dp"
+            android:hint="@string/str_et_desc_despesa"
+            android:inputType="textCapSentences"
+            android:background="@drawable/res_et_outline" />
+
+        <Button
+            android:id="@+id/idBtnGuardar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:padding="12dp"
+            android:text="@string/str_btn_guardar"
+            android:backgroundTint="@color/button_primary" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

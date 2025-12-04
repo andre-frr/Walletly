@@ -9,4 +9,61 @@
     android:fitsSystemWindows="true"
     tools:context=".AddIncomeActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/idIbBack1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/str_ib_back"
+            android:src="@drawable/ic_arrow_backward" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/stack_sans_notch"
+            android:text="@string/str_tv_receitas"
+            android:textColor="@color/text_primary"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/idEtValorReceita"
+            android:layout_marginTop="24dp"
+            android:padding="12dp"
+            android:hint="@string/str_et_valor_receita"
+            android:inputType="numberDecimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/res_et_outline" />
+
+        <EditText
+            android:id="@+id/idEtDescReceita"
+            android:layout_marginTop="12dp"
+            android:padding="12dp"
+            android:hint="@string/str_et_desc_receita"
+            android:inputType="textCapSentences"
+            android:background="@drawable/res_et_outline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/idBtnGuardar1"
+            android:layout_marginTop="12dp"
+            android:padding="12dp"
+            android:layout_width="match_parent"
+            android:text="@string/str_btn_guardar"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/button_primary" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

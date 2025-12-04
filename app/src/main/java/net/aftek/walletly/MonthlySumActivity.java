@@ -44,7 +44,7 @@ public class MonthlySumActivity extends AppCompatActivity {
         mTvDespesas = findViewById(R.id.idTvDespesas);
         mChartMensal = findViewById(R.id.idChartMensal);
         mLvMovimentos = findViewById(R.id.idLvMovimentos);
-        mIbVoltar = findViewById(R.id.idIbBackButton);
+        mIbVoltar = findViewById(R.id.idIbBack3);
 
         //Comportamentos
         mIbVoltar.setOnClickListener(v -> {

@@ -2,6 +2,7 @@ package net.aftek.walletly;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -58,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mFABAdicionar.setOnClickListener(v -> {
-            PopupMenu popupMenu = new PopupMenu(MainActivity.this, mFABAdicionar);
+            PopupMenu popupMenu = new PopupMenu(
+                    MainActivity.this, mFABAdicionar, Gravity.NO_GRAVITY, 0, R.style.NoShadowPopupMenu);
             popupMenu.getMenu().add("Receita");
             popupMenu.getMenu().add("Despesa");
 
