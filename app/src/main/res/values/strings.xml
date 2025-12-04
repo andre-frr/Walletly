@@ -24,6 +24,6 @@
 
     <!-- history_item.xml strings -->
     <string name="str_tv_data">Data</string>
-
+    <string name="str_tv_desc">Descrição</string>
 
 </resources>

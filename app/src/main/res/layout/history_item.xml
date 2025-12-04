@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/stack_sans_notch"
-                android:text="Description"
+                android:text="@string/str_tv_desc"
                 android:textColor="@color/text_primary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
