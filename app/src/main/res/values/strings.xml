@@ -17,6 +17,7 @@
     <string name="str_et_valor_receita">Valor da Receita</string>
     <string name="str_et_desc_receita">Descrição da Receita</string>
     <string name="str_btn_guardar">Guardar</string>
+    <string name="str_spn_categorias">Categorias</string>
 
     <!-- activity_add_expense.xml strings -->
     <string name="str_et_valor_despesa">Valor da Despesa</string>

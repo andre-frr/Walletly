@@ -43,6 +43,7 @@
             android:padding="12dp"
             android:hint="@string/str_et_valor_despesa"
             android:inputType="numberDecimal"
+            android:textSize="16sp"
             android:background="@drawable/res_et_outline" />
 
         <EditText
@@ -53,6 +54,15 @@
             android:padding="12dp"
             android:hint="@string/str_et_desc_despesa"
             android:inputType="textCapSentences"
+            android:textSize="16sp"
+            android:background="@drawable/res_et_outline" />
+
+        <Spinner
+            android:id="@+id/idSpnCategorias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:padding="12dp"
             android:background="@drawable/res_et_outline" />
 
         <Button

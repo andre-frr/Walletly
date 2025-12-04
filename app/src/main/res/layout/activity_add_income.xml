@@ -41,6 +41,7 @@
             android:padding="12dp"
             android:hint="@string/str_et_valor_receita"
             android:inputType="numberDecimal"
+            android:textSize="16sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/res_et_outline" />
@@ -51,6 +52,7 @@
             android:padding="12dp"
             android:hint="@string/str_et_desc_receita"
             android:inputType="textCapSentences"
+            android:textSize="16sp"
             android:background="@drawable/res_et_outline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
