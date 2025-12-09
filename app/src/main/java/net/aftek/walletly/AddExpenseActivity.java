@@ -78,20 +78,20 @@ public class AddExpenseActivity extends AppCompatActivity {
 
     private void expenseCategories() {
         List<String> categorias = new ArrayList<>();
-        categorias.add("Selecione a categoria"); // Placeholder
-        categorias.add("Despesas Gerais e Familiares");
-        categorias.add("Saúde e Bem-estar");
-        categorias.add("Educação");
-        categorias.add("Habitação");
-        categorias.add("Lares");
-        categorias.add("Reparação de veículos");
-        categorias.add("Restauração e Alojamento");
-        categorias.add("Cabeleireiros");
-        categorias.add("Atividades Veterinárias");
-        categorias.add("Passes Mensais");
-        categorias.add("Ginásios");
-        categorias.add("Jornais e Revistas");
-        categorias.add("Outras");
+        categorias.add(getString(R.string.str_cat_select));
+        categorias.add(getString(R.string.str_cat_despesas_gerais));
+        categorias.add(getString(R.string.str_cat_saude));
+        categorias.add(getString(R.string.str_cat_educacao));
+        categorias.add(getString(R.string.str_cat_habitacao));
+        categorias.add(getString(R.string.str_cat_lares));
+        categorias.add(getString(R.string.str_cat_reparacao_veiculos));
+        categorias.add(getString(R.string.str_cat_restauracao));
+        categorias.add(getString(R.string.str_cat_cabeleireiros));
+        categorias.add(getString(R.string.str_cat_veterinarias));
+        categorias.add(getString(R.string.str_cat_passes));
+        categorias.add(getString(R.string.str_cat_ginasios));
+        categorias.add(getString(R.string.str_cat_jornais));
+        categorias.add(getString(R.string.str_cat_outras));
 
         mUtils.populateSpinner(mSpnCategorias, categorias);
     }

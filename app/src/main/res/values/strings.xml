@@ -27,4 +27,33 @@
     <string name="str_tv_data">Data</string>
     <string name="str_tv_desc">Descrição</string>
 
+    <!-- Popup menu strings -->
+    <string name="str_menu_receita">Receita</string>
+    <string name="str_menu_despesa">Despesa</string>
+
+    <!-- Income categories -->
+    <string name="str_cat_select">Selecione a categoria</string>
+    <string name="str_cat_salario">Salário</string>
+    <string name="str_cat_freelance">Freelance</string>
+    <string name="str_cat_investimentos">Investimentos</string>
+    <string name="str_cat_rendas">Rendas</string>
+    <string name="str_cat_vendas">Vendas</string>
+    <string name="str_cat_reembolsos">Reembolsos</string>
+    <string name="str_cat_presentes">Presentes ou Doações</string>
+    <string name="str_cat_outras">Outras</string>
+
+    <!-- Expense categories -->
+    <string name="str_cat_despesas_gerais">Despesas Gerais e Familiares</string>
+    <string name="str_cat_saude">Saúde e Bem-estar</string>
+    <string name="str_cat_educacao">Educação</string>
+    <string name="str_cat_habitacao">Habitação</string>
+    <string name="str_cat_lares">Lares</string>
+    <string name="str_cat_reparacao_veiculos">Reparação de veículos</string>
+    <string name="str_cat_restauracao">Restauração e Alojamento</string>
+    <string name="str_cat_cabeleireiros">Cabeleireiros</string>
+    <string name="str_cat_veterinarias">Atividades Veterinárias</string>
+    <string name="str_cat_passes">Passes Mensais</string>
+    <string name="str_cat_ginasios">Ginásios</string>
+    <string name="str_cat_jornais">Jornais e Revistas</string>
+
 </resources>

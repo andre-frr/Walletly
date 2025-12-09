@@ -78,15 +78,15 @@ public class AddIncomeActivity extends AppCompatActivity {
 
     private void incomeCategories() {
         List<String> categorias = new ArrayList<>();
-        categorias.add("Selecione a categoria"); // Placeholder hint
-        categorias.add("Salário");
-        categorias.add("Freelance");
-        categorias.add("Investimentos");
-        categorias.add("Rendas");
-        categorias.add("Vendas");
-        categorias.add("Reembolsos");
-        categorias.add("Presentes ou Doações");
-        categorias.add("Outras");
+        categorias.add(getString(R.string.str_cat_select));
+        categorias.add(getString(R.string.str_cat_salario));
+        categorias.add(getString(R.string.str_cat_freelance));
+        categorias.add(getString(R.string.str_cat_investimentos));
+        categorias.add(getString(R.string.str_cat_rendas));
+        categorias.add(getString(R.string.str_cat_vendas));
+        categorias.add(getString(R.string.str_cat_reembolsos));
+        categorias.add(getString(R.string.str_cat_presentes));
+        categorias.add(getString(R.string.str_cat_outras));
 
         mUtils.populateSpinner(mSpnCategorias, categorias);
     }

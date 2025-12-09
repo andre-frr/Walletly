@@ -1,18 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- activity_main.xml strings -->
     <string name="str_tv_saldo">Saldo Total</string>
+    <string name="str_tv_movimentos">Movimientos</string>
+    <string name="str_fab_adicionar">Añadir Ingreso o Gasto</string>
+
+    <!-- activity_monthly_sum.xml strings -->
     <string name="str_tv_receitas">Ingresos</string>
     <string name="str_tv_despesas">Gastos</string>
     <string name="str_tv_chart">Gráfico Mensual</string>
     <string name="str_ib_back">Volver</string>
+
+    <!-- activity_add_income.xml strings -->
     <string name="str_et_valor_receita">Importe del Ingreso</string>
     <string name="str_et_desc_receita">Descripción del Ingreso</string>
     <string name="str_btn_guardar">Guardar</string>
     <string name="str_spn_categorias">Categorías</string>
+
+    <!-- activity_add_expense.xml strings -->
     <string name="str_et_valor_despesa">Importe del Gasto</string>
     <string name="str_et_desc_despesa">Descripción del Gasto</string>
-    <string name="str_tv_movimentos">Movimientos</string>
-    <string name="str_fab_adicionar">Añadir Ingreso o Gasto</string>
+
+    <!-- history_item.xml strings -->
     <string name="str_tv_data">Fecha</string>
     <string name="str_tv_desc">Descripción</string>
+
+    <!-- Popup menu strings -->
+    <string name="str_menu_receita">Ingreso</string>
+    <string name="str_menu_despesa">Gasto</string>
+
+    <!-- Income categories -->
+    <string name="str_cat_select">Seleccione la categoría</string>
+    <string name="str_cat_salario">Salario</string>
+    <string name="str_cat_freelance">Freelance</string>
+    <string name="str_cat_investimentos">Inversiones</string>
+    <string name="str_cat_rendas">Ingresos por Alquiler</string>
+    <string name="str_cat_vendas">Ventas</string>
+    <string name="str_cat_reembolsos">Reembolsos</string>
+    <string name="str_cat_presentes">Regalos o Donaciones</string>
+    <string name="str_cat_outras">Otros</string>
+
+    <!-- Expense categories -->
+    <string name="str_cat_despesas_gerais">Gastos Generales y Familiares</string>
+    <string name="str_cat_saude">Salud y Bienestar</string>
+    <string name="str_cat_educacao">Educación</string>
+    <string name="str_cat_habitacao">Vivienda</string>
+    <string name="str_cat_lares">Residencias</string>
+    <string name="str_cat_reparacao_veiculos">Reparación de Vehículos</string>
+    <string name="str_cat_restauracao">Restaurantes y Alojamiento</string>
+    <string name="str_cat_cabeleireiros">Peluquerías</string>
+    <string name="str_cat_veterinarias">Servicios Veterinarios</string>
+    <string name="str_cat_passes">Abonos Mensuales</string>
+    <string name="str_cat_ginasios">Gimnasios</string>
+    <string name="str_cat_jornais">Periódicos y Revistas</string>
+
 </resources>

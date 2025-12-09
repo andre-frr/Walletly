@@ -65,16 +65,18 @@ public class MainActivity extends AppCompatActivity {
         mFABAdicionar.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(
                     MainActivity.this, mFABAdicionar, Gravity.NO_GRAVITY, 0, R.style.NoShadowPopupMenu);
-            popupMenu.getMenu().add("Receita");
-            popupMenu.getMenu().add("Despesa");
+            String receita = getString(R.string.str_menu_receita);
+            String despesa = getString(R.string.str_menu_despesa);
+            popupMenu.getMenu().add(receita);
+            popupMenu.getMenu().add(despesa);
 
             popupMenu.setOnMenuItemClickListener(item -> {
-                if (item.getTitle().equals("Receita")) {
+                if (item.getTitle().equals(receita)) {
                     Log.d(STAMP, "Selecionado: Adicionar Receita");
                     Intent intent = new Intent(MainActivity.this, AddIncomeActivity.class);
                     startActivity(intent);
                     return true;
-                } else if (item.getTitle().equals("Despesa")) {
+                } else if (item.getTitle().equals(despesa)) {
                     Log.d(STAMP, "Selecionado: Adicionar Despesa");
                     Intent intent = new Intent(MainActivity.this, AddExpenseActivity.class);
                     startActivity(intent);
