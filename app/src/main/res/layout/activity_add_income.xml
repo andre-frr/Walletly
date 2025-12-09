@@ -57,6 +57,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <Spinner
+            android:id="@+id/idSpnCategorias1"
+            style="@style/SpinnerDropdownStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:padding="12dp"
+            android:background="@drawable/res_et_outline" />
+
         <Button
             android:id="@+id/idBtnGuardar1"
             android:layout_marginTop="12dp"
