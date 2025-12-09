@@ -1,6 +1,5 @@
 package net.aftek.walletly;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -17,11 +16,14 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Activity para adicionar despesas
+ */
 public class AddExpenseActivity extends AppCompatActivity {
 
     public final static String STAMP = "@AddExpenseActivity";
 
-    //Membros de dados
+    // Membros de dados
     ImageButton mIbVoltar;
     EditText mEtValorDespesa, mEtDescDespesa;
     Spinner mSpnCategorias;
@@ -47,9 +49,12 @@ public class AddExpenseActivity extends AppCompatActivity {
         init();
     }
 
+    /**
+     * Inicializa os componentes da activity
+     */
     void init() {
 
-        //Associações
+        // Associações de views
         mIbVoltar = findViewById(R.id.idIbBack2);
         mEtValorDespesa = findViewById(R.id.idEtValorDespesa);
         mEtDescDespesa = findViewById(R.id.idEtDescDespesa);
@@ -57,17 +62,17 @@ public class AddExpenseActivity extends AppCompatActivity {
         mBtnGuardar = findViewById(R.id.idBtnGuardar2);
         mUtils = new Utils(this);
 
-        //Database e Executor
+        // Database e Executor
         mDatabase = AppDatabase.getInstance(this);
         mExecutorService = Executors.newSingleThreadExecutor();
 
-        //Helpers
+        // Popular spinner com categorias
         expenseCategories();
 
-        //Comportamentos
+        // Comportamentos
         mIbVoltar.setOnClickListener(v -> {
-            Intent intent = new Intent(AddExpenseActivity.this, MainActivity.class);
-            startActivity(intent);
+            Log.d(STAMP, "Botão voltar clicado");
+            mUtils.navigateToMain();
         });
 
         mBtnGuardar.setOnClickListener(v -> {
@@ -76,6 +81,9 @@ public class AddExpenseActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Popular spinner com categorias de despesa
+     */
     private void expenseCategories() {
         List<String> categorias = new ArrayList<>();
         categorias.add(getString(R.string.str_cat_select));
@@ -96,6 +104,9 @@ public class AddExpenseActivity extends AppCompatActivity {
         mUtils.populateSpinner(mSpnCategorias, categorias);
     }
 
+    /**
+     * Guarda a despesa na base de dados
+     */
     private void saveExpense() {
         mUtils.saveMovimento(
                 mEtValorDespesa,

@@ -1,6 +1,5 @@
 package net.aftek.walletly;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -17,11 +16,14 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Activity para adicionar receitas
+ */
 public class AddIncomeActivity extends AppCompatActivity {
 
     public final static String STAMP = "@AddIncomeActivity";
 
-    //Membros de dados
+    // Membros de dados
     ImageButton mIbVoltar;
     EditText mEtValorReceita, mEtDescReceita;
     Spinner mSpnCategorias;
@@ -47,9 +49,12 @@ public class AddIncomeActivity extends AppCompatActivity {
         init();
     }
 
+    /**
+     * Inicializa os componentes da activity
+     */
     void init() {
 
-        //Associações
+        // Associações de views
         mIbVoltar = findViewById(R.id.idIbBack1);
         mEtValorReceita = findViewById(R.id.idEtValorReceita);
         mEtDescReceita = findViewById(R.id.idEtDescReceita);
@@ -57,17 +62,17 @@ public class AddIncomeActivity extends AppCompatActivity {
         mBtnGuardar = findViewById(R.id.idBtnGuardar1);
         mUtils = new Utils(this);
 
-        //Database e Executor
+        // Database e Executor
         mDatabase = AppDatabase.getInstance(this);
         mExecutorService = Executors.newSingleThreadExecutor();
 
-        //Helpers
+        // Popular spinner com categorias
         incomeCategories();
 
-        //Comportamentos
+        // Comportamentos
         mIbVoltar.setOnClickListener(v -> {
-            Intent intent = new Intent(AddIncomeActivity.this, MainActivity.class);
-            startActivity(intent);
+            Log.d(STAMP, "Botão voltar clicado");
+            mUtils.navigateToMain();
         });
 
         mBtnGuardar.setOnClickListener(v -> {
@@ -76,6 +81,9 @@ public class AddIncomeActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Popular spinner com categorias de receita
+     */
     private void incomeCategories() {
         List<String> categorias = new ArrayList<>();
         categorias.add(getString(R.string.str_cat_select));
@@ -91,6 +99,9 @@ public class AddIncomeActivity extends AppCompatActivity {
         mUtils.populateSpinner(mSpnCategorias, categorias);
     }
 
+    /**
+     * Guarda a receita na base de dados
+     */
     private void saveIncome() {
         mUtils.saveMovimento(
                 mEtValorReceita,

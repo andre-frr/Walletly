@@ -4,25 +4,36 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
-import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import net.aftek.walletly.database.AppDatabase;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+/**
+ * Activity principal - exibe saldo total e movimentos recentes
+ */
 public class MainActivity extends AppCompatActivity {
 
     public final static String STAMP = "@MainActivity";
 
-    //Membros de Dados
+    // Membros de Dados
     MaterialCardView mCardSaldo, mCardMovimentos;
     TextView mTvEuros;
-    ListView mLvMovRecentes;
+    RecyclerView mRvMovRecentes;
     FloatingActionButton mFABAdicionar;
     Utils mUtils;
+    AppDatabase mDatabase;
+    ExecutorService mExecutorService;
+    MovimentoAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +52,30 @@ public class MainActivity extends AppCompatActivity {
         init();
     }
 
+    /**
+     * Inicializa os componentes da activity
+     */
     void init() {
 
-        //Associações
+        // Associações de views
         mCardSaldo = findViewById(R.id.idCardSaldo);
         mCardMovimentos = findViewById(R.id.idCardMovimentos);
         mTvEuros = findViewById(R.id.idTvEuros);
-        mLvMovRecentes = findViewById(R.id.idLvMovRecentes);
+        mRvMovRecentes = findViewById(R.id.idRvMovRecentes);
         mFABAdicionar = findViewById(R.id.idFABAdicionar);
         mUtils = new Utils(this);
+
+        // Database e Executor
+        mDatabase = AppDatabase.getInstance(this);
+        mExecutorService = Executors.newSingleThreadExecutor();
+
+        // Setup RecyclerView
+        mAdapter = new MovimentoAdapter();
+        mUtils.setupRecyclerView(mRvMovRecentes, mAdapter);
+
+        // Carregar dados
+        mUtils.loadBalance(mTvEuros, mDatabase, mExecutorService);
+        mUtils.loadRecentTransactions(mAdapter, mDatabase, mExecutorService, 10);
 
         //Comportamentos
         mCardSaldo.setOnClickListener(v -> {
@@ -86,5 +112,22 @@ public class MainActivity extends AppCompatActivity {
             });
             popupMenu.show();
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(STAMP, "onResume - recarregando dados");
+        // Recarregar dados ao voltar para esta activity
+        mUtils.loadBalance(mTvEuros, mDatabase, mExecutorService);
+        mUtils.loadRecentTransactions(mAdapter, mDatabase, mExecutorService, 10);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mExecutorService != null && !mExecutorService.isShutdown()) {
+            mExecutorService.shutdown();
+        }
     }
 }

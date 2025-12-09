@@ -23,6 +23,12 @@ public interface MovimentoDao {
     @Query("SELECT * FROM Movimentos ORDER BY data DESC")
     List<Movimento> getMovimentos();
 
+    @Query("SELECT * FROM Movimentos ORDER BY data DESC")
+    List<Movimento> getAll();
+
+    @Query("SELECT * FROM Movimentos ORDER BY data DESC LIMIT :limit")
+    List<Movimento> getRecent(int limit);
+
     @Query("SELECT * FROM Movimentos WHERE tipo = :tipo ORDER BY data DESC")
     List<Movimento> getMovimentosPorTipo(String tipo);
 

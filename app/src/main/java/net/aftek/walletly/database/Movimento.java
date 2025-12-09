@@ -24,21 +24,51 @@ public class Movimento {
     }
 
     // Gets e Sets
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public double getValor() { return valor; }
-    public void setValor(double valor) { this.valor = valor; }
+    public String getTipo() {
+        return tipo;
+    }
 
-    public String getDescricao() { return descricao; }
-    public void setDescricao(String descricao) { this.descricao = descricao; }
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
-    public long getData() { return data; }
-    public void setData(long data) { this.data = data; }
+    public double getValor() {
+        return valor;
+    }
 
-    public String getCategoria() { return categoria; }
-    public void setCategoria(String categoria) { this.categoria = categoria; }
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public long getData() {
+        return data;
+    }
+
+    public void setData(long data) {
+        this.data = data;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
 }

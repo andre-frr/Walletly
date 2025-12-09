@@ -85,7 +85,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="377dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -99,13 +99,13 @@
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
-                <!-- List View: Movimentos Recentes -->
-                <ListView
-                    android:id="@+id/idLvMovRecentes"
+                <!-- RecyclerView: Movimentos Recentes -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/idRvMovRecentes"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:divider="@android:color/darker_gray" />
+                    android:clipToPadding="false" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>

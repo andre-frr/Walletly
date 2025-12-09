@@ -44,7 +44,9 @@
             android:hint="@string/str_et_valor_despesa"
             android:inputType="numberDecimal"
             android:textSize="16sp"
-            android:background="@drawable/res_et_outline" />
+            android:background="@drawable/res_et_outline"
+            android:autofillHints="creditCardNumber"
+            android:importantForAutofill="yes" />
 
         <EditText
             android:id="@+id/idEtDescDespesa"
@@ -55,7 +57,9 @@
             android:hint="@string/str_et_desc_despesa"
             android:inputType="textCapSentences"
             android:textSize="16sp"
-            android:background="@drawable/res_et_outline" />
+            android:background="@drawable/res_et_outline"
+            android:autofillHints="name"
+            android:importantForAutofill="yes" />
 
         <Spinner
             android:id="@+id/idSpnCategorias2"
