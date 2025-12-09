@@ -2,6 +2,7 @@ package net.aftek.walletly;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -9,8 +10,13 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import net.aftek.walletly.database.AppDatabase;
+import net.aftek.walletly.database.Movimento;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class AddExpenseActivity extends AppCompatActivity {
 
@@ -22,10 +28,13 @@ public class AddExpenseActivity extends AppCompatActivity {
     Spinner mSpnCategorias;
     Button mBtnGuardar;
     Utils mUtils;
+    AppDatabase mDatabase;
+    ExecutorService mExecutorService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(STAMP, "onCreate iniciado");
         //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_expense);
         /*
@@ -47,6 +56,11 @@ public class AddExpenseActivity extends AppCompatActivity {
         mEtDescDespesa = findViewById(R.id.idEtDescDespesa);
         mSpnCategorias = findViewById(R.id.idSpnCategorias2);
         mBtnGuardar = findViewById(R.id.idBtnGuardar2);
+        mUtils = new Utils(this);
+
+        //Database e Executor
+        mDatabase = AppDatabase.getInstance(this);
+        mExecutorService = Executors.newSingleThreadExecutor();
 
         //Helpers
         expenseCategories();
@@ -58,19 +72,14 @@ public class AddExpenseActivity extends AppCompatActivity {
         });
 
         mBtnGuardar.setOnClickListener(v -> {
-            if (mSpnCategorias.getSelectedItemPosition() == 0) {
-                Utils.showToast(this, "Por favor, selecione uma categoria");
-                return;
-            }
-
-            String categoria = mSpnCategorias.getSelectedItem().toString();
-            // TODO { Save Logic }
+            Log.d(STAMP, "Botão Guardar clicado");
+            saveExpense();
         });
     }
 
     private void expenseCategories() {
         List<String> categorias = new ArrayList<>();
-        categorias.add("Selecione a categoria"); // Placeholder hint
+        categorias.add("Selecione a categoria"); // Placeholder
         categorias.add("Despesas Gerais e Familiares");
         categorias.add("Saúde e Bem-estar");
         categorias.add("Educação");
@@ -83,7 +92,28 @@ public class AddExpenseActivity extends AppCompatActivity {
         categorias.add("Passes Mensais");
         categorias.add("Ginásios");
         categorias.add("Jornais e Revistas");
+        categorias.add("Outras");
 
-        mUtils.populateSpinner(this, mSpnCategorias, categorias);
+        Utils.populateSpinner(this, mSpnCategorias, categorias);
+    }
+
+    private void saveExpense() {
+        Utils.saveMovimento(
+                this,
+                mEtValorDespesa,
+                mEtDescDespesa,
+                mSpnCategorias,
+                "despesa",
+                mDatabase,
+                mExecutorService
+        );
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mExecutorService != null && !mExecutorService.isShutdown()) {
+            mExecutorService.shutdown();
+        }
     }
 }

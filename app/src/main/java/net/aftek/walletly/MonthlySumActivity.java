@@ -2,6 +2,7 @@ package net.aftek.walletly;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,11 +20,13 @@ public class MonthlySumActivity extends AppCompatActivity {
     LineChart mChartMensal;
     ListView mLvMovimentos;
     ImageButton mIbVoltar;
+    Utils mUtils;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(STAMP, "onCreate iniciado");
         //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_monthly_sum);
         /*
@@ -45,6 +48,7 @@ public class MonthlySumActivity extends AppCompatActivity {
         mChartMensal = findViewById(R.id.idChartMensal);
         mLvMovimentos = findViewById(R.id.idLvMovimentos);
         mIbVoltar = findViewById(R.id.idIbBack3);
+        mUtils = new Utils(this);
 
         //Comportamentos
         mIbVoltar.setOnClickListener(v -> {

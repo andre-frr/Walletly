@@ -2,6 +2,7 @@ package net.aftek.walletly;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -21,10 +22,12 @@ public class MainActivity extends AppCompatActivity {
     TextView mTvEuros;
     ListView mLvMovRecentes;
     FloatingActionButton mFABAdicionar;
+    Utils mUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(STAMP, "onCreate iniciado");
         //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         /*
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         mTvEuros = findViewById(R.id.idTvEuros);
         mLvMovRecentes = findViewById(R.id.idLvMovRecentes);
         mFABAdicionar = findViewById(R.id.idFABAdicionar);
+        mUtils = new Utils(this);
 
         //Comportamentos
         mCardSaldo.setOnClickListener(v -> {
@@ -66,10 +70,12 @@ public class MainActivity extends AppCompatActivity {
 
             popupMenu.setOnMenuItemClickListener(item -> {
                 if (item.getTitle().equals("Receita")) {
+                    Log.d(STAMP, "Selecionado: Adicionar Receita");
                     Intent intent = new Intent(MainActivity.this, AddIncomeActivity.class);
                     startActivity(intent);
                     return true;
                 } else if (item.getTitle().equals("Despesa")) {
+                    Log.d(STAMP, "Selecionado: Adicionar Despesa");
                     Intent intent = new Intent(MainActivity.this, AddExpenseActivity.class);
                     startActivity(intent);
                     return true;

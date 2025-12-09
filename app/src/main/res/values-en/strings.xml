@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="str_tv_saldo">Balance</string>
+    <string name="str_tv_movimentos">Transactions</string>
+    <string name="str_fab_adicionar">Add Income or Expense</string>
+    <string name="str_tv_receitas">Income</string>
+    <string name="str_tv_despesas">Expenses</string>
+    <string name="str_tv_chart">Monthly Chart</string>
+    <string name="str_ib_back">Go Back</string>
+    <string name="str_et_valor_receita">Income Amount</string>
+    <string name="str_et_desc_receita">Income Description</string>
+    <string name="str_btn_guardar">Save</string>
+    <string name="str_spn_categorias">Categories</string>
+    <string name="str_et_valor_despesa">Expense Amount</string>
+    <string name="str_et_desc_despesa">Expense Description</string>
+    <string name="str_tv_data">Date</string>
+    <string name="str_tv_desc">Description</string>
+</resources>

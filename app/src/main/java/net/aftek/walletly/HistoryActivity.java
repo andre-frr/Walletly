@@ -2,6 +2,7 @@ package net.aftek.walletly;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,10 +16,12 @@ public class HistoryActivity extends AppCompatActivity {
     // Membros de dados
     ImageButton mIbVoltar;
     RecyclerView mRvMovimentos;
+    Utils mUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(STAMP, "onCreate iniciado");
         //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_history);
         /*
@@ -37,6 +40,7 @@ public class HistoryActivity extends AppCompatActivity {
         // Associações
         mIbVoltar = findViewById(R.id.idIbBack4);
         mRvMovimentos = findViewById(R.id.idRvHistory);
+        mUtils = new Utils(this);
 
         //Comportamentos
         mIbVoltar.setOnClickListener(v -> {

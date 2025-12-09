@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="str_tv_saldo">Saldo Total</string>
+    <string name="str_tv_receitas">Ingresos</string>
+    <string name="str_tv_despesas">Gastos</string>
+    <string name="str_tv_chart">Gráfico Mensual</string>
+    <string name="str_ib_back">Volver</string>
+    <string name="str_et_valor_receita">Importe del Ingreso</string>
+    <string name="str_et_desc_receita">Descripción del Ingreso</string>
+    <string name="str_btn_guardar">Guardar</string>
+    <string name="str_spn_categorias">Categorías</string>
+    <string name="str_et_valor_despesa">Importe del Gasto</string>
+    <string name="str_et_desc_despesa">Descripción del Gasto</string>
+    <string name="str_tv_movimentos">Movimientos</string>
+    <string name="str_fab_adicionar">Añadir Ingreso o Gasto</string>
+    <string name="str_tv_data">Fecha</string>
+    <string name="str_tv_desc">Descripción</string>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="str_tv_saldo">Solde Total</string>
+    <string name="str_tv_receitas">Revenus</string>
+    <string name="str_tv_despesas">Dépenses</string>
+    <string name="str_tv_chart">Graphique Mensuel</string>
+    <string name="str_ib_back">Retour</string>
+    <string name="str_et_valor_receita">Montant du Revenu</string>
+    <string name="str_et_desc_receita">Description du Revenu</string>
+    <string name="str_btn_guardar">Enregistrer</string>
+    <string name="str_spn_categorias">Catégories</string>
+    <string name="str_et_valor_despesa">Montant de la Dépense</string>
+    <string name="str_et_desc_despesa">Description de la Dépense</string>
+    <string name="str_tv_movimentos">Transactions</string>
+    <string name="str_fab_adicionar">Ajouter Revenu ou Dépense</string>
+    <string name="str_tv_data">Date</string>
+    <string name="str_tv_desc">Description</string>
+</resources>
