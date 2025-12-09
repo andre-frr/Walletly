@@ -1,7 +1,6 @@
 package net.aftek.walletly;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -29,23 +28,21 @@ public class Utils {
     /**
      * Toast genérico
      *
-     * @param context activity em questão
      * @param message mensagem a ser mostrada
      */
-    public static void showToast(Context context, String message) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+    public void showToast(String message) {
+        Toast.makeText(mA, message, Toast.LENGTH_SHORT).show();
     }
 
     /**
      * Popular um spinner
      *
-     * @param context activity em questão
      * @param spinner spinner a ser populado
      * @param items   lista de itens a serem mostrados
      */
-    public static void populateSpinner(Context context, @NonNull Spinner spinner, List<String> items) {
+    public void populateSpinner(@NonNull Spinner spinner, List<String> items) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                context,
+                mA,
                 android.R.layout.simple_spinner_item,
                 items
         );
@@ -68,7 +65,6 @@ public class Utils {
     /**
      * Método genérico para salvar um movimento (receita ou despesa)
      *
-     * @param activity        activity atual
      * @param etValor         EditText do valor
      * @param etDescricao     EditText da descrição
      * @param spnCategoria    Spinner da categoria
@@ -76,8 +72,7 @@ public class Utils {
      * @param database        instância do banco de dados
      * @param executorService executor para background thread
      */
-    public static void saveMovimento(
-            Activity activity,
+    public void saveMovimento(
             EditText etValor,
             EditText etDescricao,
             Spinner spnCategoria,
@@ -88,7 +83,7 @@ public class Utils {
         // Validação do valor
         String valorStr = etValor.getText().toString().trim();
         if (valorStr.isEmpty()) {
-            showToast(activity, "Por favor, insira o valor " + (tipo.equals("receita") ? "da receita" : "da despesa"));
+            showToast("Por favor, insira o valor " + (tipo.equals("receita") ? "da receita" : "da despesa"));
             return;
         }
 
@@ -96,24 +91,24 @@ public class Utils {
         try {
             valor = Double.parseDouble(valorStr);
             if (valor <= 0) {
-                showToast(activity, "O valor deve ser maior que zero");
+                showToast("O valor deve ser maior que zero");
                 return;
             }
         } catch (NumberFormatException e) {
-            showToast(activity, "Valor inválido");
+            showToast("Valor inválido");
             return;
         }
 
         // Validação da descrição
         String descricao = etDescricao.getText().toString().trim();
         if (descricao.isEmpty()) {
-            showToast(activity, "Por favor, insira uma descrição");
+            showToast("Por favor, insira uma descrição");
             return;
         }
 
         // Validação da categoria
         if (spnCategoria.getSelectedItemPosition() == 0) {
-            showToast(activity, "Por favor, selecione uma categoria");
+            showToast("Por favor, selecione uma categoria");
             return;
         }
 
@@ -131,16 +126,16 @@ public class Utils {
                 Log.d(STAMP, "Movimento inserido com sucesso na BD");
 
                 // Voltar para a UI thread para mostrar o toast e navegar
-                activity.runOnUiThread(() -> {
+                mA.runOnUiThread(() -> {
                     String mensagem = tipo.equals("receita") ? "Receita guardada com sucesso!" : "Despesa guardada com sucesso!";
-                    showToast(activity, mensagem);
-                    Intent intent = new Intent(activity, MainActivity.class);
-                    activity.startActivity(intent);
-                    activity.finish();
+                    showToast(mensagem);
+                    Intent intent = new Intent(mA, MainActivity.class);
+                    mA.startActivity(intent);
+                    mA.finish();
                 });
             } catch (Exception e) {
                 Log.e(STAMP, "Erro ao inserir movimento na BD: " + e.getMessage());
-                activity.runOnUiThread(() -> showToast(activity, "Erro ao guardar"));
+                mA.runOnUiThread(() -> showToast("Erro ao guardar"));
             }
         });
     }

@@ -11,7 +11,6 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import net.aftek.walletly.database.AppDatabase;
-import net.aftek.walletly.database.Movimento;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,12 +93,11 @@ public class AddExpenseActivity extends AppCompatActivity {
         categorias.add("Jornais e Revistas");
         categorias.add("Outras");
 
-        Utils.populateSpinner(this, mSpnCategorias, categorias);
+        mUtils.populateSpinner(mSpnCategorias, categorias);
     }
 
     private void saveExpense() {
-        Utils.saveMovimento(
-                this,
+        mUtils.saveMovimento(
                 mEtValorDespesa,
                 mEtDescDespesa,
                 mSpnCategorias,

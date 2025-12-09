@@ -88,12 +88,11 @@ public class AddIncomeActivity extends AppCompatActivity {
         categorias.add("Presentes ou Doações");
         categorias.add("Outras");
 
-        Utils.populateSpinner(this, mSpnCategorias, categorias);
+        mUtils.populateSpinner(mSpnCategorias, categorias);
     }
 
     private void saveIncome() {
-        Utils.saveMovimento(
-                this,
+        mUtils.saveMovimento(
                 mEtValorReceita,
                 mEtDescReceita,
                 mSpnCategorias,
