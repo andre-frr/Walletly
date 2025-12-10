@@ -13,4 +13,3 @@
         android:icon="@drawable/ic_settings"
         android:title="@string/str_nav_settings" />
 </menu>
-

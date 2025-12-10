@@ -9,4 +9,3 @@
     android:fontFamily="@font/stack_sans_notch"
     android:ellipsize="end"
     android:maxLines="1" />
-

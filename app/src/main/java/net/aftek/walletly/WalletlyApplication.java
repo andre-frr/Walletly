@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate;
  * Classe Application customizada para inicialização global da app
  * Carrega o tema salvo nas preferências do utilizador
  */
-public class WalletlyApp extends Application {
+public class WalletlyApplication extends Application {
 
     private static final String PREFS_NAME = "WalletlyPrefs";
     private static final String PREF_THEME = "theme";
@@ -25,4 +25,3 @@ public class WalletlyApp extends Application {
         AppCompatDelegate.setDefaultNightMode(savedTheme);
     }
 }
-
