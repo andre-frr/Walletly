@@ -9,7 +9,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:gravity="center"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@id/idBottomNavBar"
@@ -18,36 +17,45 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="48dp"
-            android:fontFamily="@font/stack_sans_notch"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
             android:gravity="center_horizontal"
+            android:fontFamily="@font/stack_sans_notch"
             android:text="@string/str_nav_transactions"
             android:textColor="@color/text_primary"
             android:textSize="32sp"
             android:textStyle="bold" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/idBtnAddIncome"
-            android:layout_width="250dp"
-            android:layout_height="120dp"
-            android:layout_marginBottom="24dp"
-            android:backgroundTint="@color/income_green"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
             android:fontFamily="@font/stack_sans_notch"
+            android:gravity="start|center_vertical"
             android:text="@string/str_btn_add_income"
-            android:textSize="18sp"
-            app:cornerRadius="12dp"
-            app:elevation="2dp" />
+            android:textAlignment="viewStart"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
+            app:icon="@drawable/ic_arrow_forward"
+            app:iconGravity="start"
+            app:iconTint="@color/text_primary" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/idBtnAddExpense"
-            android:layout_width="250dp"
-            android:layout_height="120dp"
-            android:backgroundTint="@color/expense_red"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
             android:fontFamily="@font/stack_sans_notch"
+            android:gravity="start|center_vertical"
             android:text="@string/str_btn_add_expense"
-            android:textSize="18sp"
-            app:cornerRadius="12dp"
-            app:elevation="2dp" />
+            android:textAlignment="viewStart"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
+            app:icon="@drawable/ic_arrow_backward"
+            app:iconGravity="start"
+            app:iconTint="@color/text_primary" />
 
     </LinearLayout>
 
@@ -56,7 +64,7 @@
         android:id="@+id/idBottomNavBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/background_primary"
         app:elevation="8dp"
         app:itemIconTint="@color/text_primary"
         app:itemTextColor="@color/text_primary"

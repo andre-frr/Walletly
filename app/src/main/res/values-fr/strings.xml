@@ -60,4 +60,10 @@
     <string name="str_btn_add_income">Ajouter un Revenu</string>
     <string name="str_btn_add_expense">Ajouter une Dépense</string>
 
+    <!-- Settings strings -->
+    <string name="str_setting_theme">Thème</string>
+    <string name="str_theme_light">Clair</string>
+    <string name="str_theme_dark">Sombre</string>
+    <string name="str_theme_system">Système</string>
+
 </resources>

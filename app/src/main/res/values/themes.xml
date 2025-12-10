@@ -19,13 +19,17 @@
         <!-- Customize your theme here. -->
         <item name="fontFamily">@font/stack_sans_notch</item>
         <item name="android:fontFamily">@font/stack_sans_notch</item>
+        <item name="android:windowBackground">@color/background_primary</item>
+        <item name="colorSurface">@color/card_background</item>
+
+        <!-- EditText and input styling -->
+        <item name="android:editTextColor">@color/text_primary</item>
+        <item name="android:textColorHint">@color/text_secondary</item>
+        <item name="colorControlNormal">@color/text_secondary</item>
+        <item name="colorControlActivated">@color/button_primary</item>
     </style>
 
 
     <!-- Reduzir a sombra do Spinner -->
-    <style name="SpinnerDropdownStyle">
-        <item name="android:popupElevation">2dp</item>
-        <item name="android:fontFamily">@font/stack_sans_notch</item>
-    </style>
 
 </resources>

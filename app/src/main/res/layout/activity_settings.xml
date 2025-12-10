@@ -9,23 +9,62 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:gravity="center"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@id/idBottomNavBar"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
             android:fontFamily="@font/stack_sans_notch"
-            android:gravity="center_horizontal"
             android:text="@string/str_nav_settings"
             android:textColor="@color/text_primary"
             android:textSize="32sp"
             android:textStyle="bold" />
 
-        <!-- TODO: Adicionar opções de definições aqui -->
+        <!-- Theme Setting Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/stack_sans_notch"
+                    android:text="@string/str_setting_theme"
+                    android:layout_weight="1"
+                    android:textColor="@color/text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/idSpnThemeSelector"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:fontFamily="@font/stack_sans_notch"
+                    android:popupElevation="2dp"
+                    android:background="@drawable/res_et_outline" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 
@@ -34,7 +73,7 @@
         android:id="@+id/idBottomNavBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/background_primary"
         app:elevation="8dp"
         app:itemIconTint="@color/text_primary"
         app:itemTextColor="@color/text_primary"

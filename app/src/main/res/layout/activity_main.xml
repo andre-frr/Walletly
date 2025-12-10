@@ -25,7 +25,7 @@
             android:fontFamily="@font/stack_sans_notch"
             android:gravity="center_horizontal"
             android:text="@string/str_tv_app_name"
-            android:textColor="@android:color/black"
+            android:textColor="@color/text_primary"
             android:textSize="40sp"
             android:textStyle="bold" />
 
@@ -113,7 +113,7 @@
         android:id="@+id/idBottomNavBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/background_primary"
         app:elevation="8dp"
         app:itemIconTint="@color/text_primary"
         app:itemTextColor="@color/text_primary"
