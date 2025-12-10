@@ -36,15 +36,7 @@ public class AddIncomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(STAMP, "onCreate iniciado");
-        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_income);
-        /*
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-         */
 
         init();
     }
@@ -55,11 +47,11 @@ public class AddIncomeActivity extends AppCompatActivity {
     void init() {
 
         // Associações de views
-        mIbVoltar = findViewById(R.id.idIbBack1);
+        mIbVoltar = findViewById(R.id.idIbBack);
         mEtValorReceita = findViewById(R.id.idEtValorReceita);
         mEtDescReceita = findViewById(R.id.idEtDescReceita);
-        mSpnCategorias = findViewById(R.id.idSpnCategorias1);
-        mBtnGuardar = findViewById(R.id.idBtnGuardar1);
+        mSpnCategorias = findViewById(R.id.idSpnCategorias);
+        mBtnGuardar = findViewById(R.id.idBtnGuardar);
         mUtils = new Utils(this);
 
         // Database e Executor
@@ -71,8 +63,8 @@ public class AddIncomeActivity extends AppCompatActivity {
 
         // Comportamentos
         mIbVoltar.setOnClickListener(v -> {
-            Log.d(STAMP, "Botão voltar clicado");
-            mUtils.navigateToMain();
+            Log.d(STAMP, "Botão voltar clicado - navegando para TransactionHub");
+            mUtils.navigateToTransactionHub();
         });
 
         mBtnGuardar.setOnClickListener(v -> {

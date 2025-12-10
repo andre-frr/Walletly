@@ -31,15 +31,7 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(STAMP, "onCreate iniciado");
-        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_history);
-        /*
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-         */
 
         init();
     }
@@ -50,7 +42,7 @@ public class HistoryActivity extends AppCompatActivity {
     void init() {
 
         // Associações de views
-        mIbVoltar = findViewById(R.id.idIbBack4);
+        mIbVoltar = findViewById(R.id.idIbBack);
         mRvMovimentos = findViewById(R.id.idRvHistory);
         mUtils = new Utils(this);
 

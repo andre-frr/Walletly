@@ -56,10 +56,10 @@ public class Utils {
     public void populateSpinner(@NonNull Spinner spinner, List<String> items) {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 mA,
-                android.R.layout.simple_spinner_item,
+                R.layout.spinner_item,
                 items
         );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
 
@@ -142,7 +142,8 @@ public class Utils {
                 mA.runOnUiThread(() -> {
                     String mensagem = tipo.equals("receita") ? "Receita guardada com sucesso!" : "Despesa guardada com sucesso!";
                     showToast(mensagem);
-                    Intent intent = new Intent(mA, MainActivity.class);
+                    Log.d(STAMP, "Navegando de volta para TransactionHub");
+                    Intent intent = new Intent(mA, TransactionHubActivity.class);
                     mA.startActivity(intent);
                     mA.finish();
                 });
@@ -231,6 +232,16 @@ public class Utils {
     }
 
     /**
+     * Navega de volta para o TransactionHub
+     */
+    public void navigateToTransactionHub() {
+        Log.d(STAMP, "Navegando para TransactionHub");
+        Intent intent = new Intent(mA, TransactionHubActivity.class);
+        mA.startActivity(intent);
+        mA.finish();
+    }
+
+    /**
      * Configura um RecyclerView com LinearLayoutManager
      *
      * @param recyclerView RecyclerView a ser configurado
@@ -243,78 +254,46 @@ public class Utils {
     }
 
     /**
-     * Calcula o total de receitas e despesas do mês atual
+     * Configura a barra de navegação inferior
+     * Gerencia a navegação entre as 3 activities principais: Home, In & Out, Definições
      *
-     * @param database        Instância do banco de dados
-     * @param executorService Executor para background thread
-     * @param tvReceitas      TextView para exibir receitas
-     * @param tvDespesas      TextView para exibir despesas
-     * @param adapter         Adapter para as transações
-     * @param onDataLoaded    Callback executado após carregar dados
+     * @param selectedItemId ID do item atualmente selecionado na navegação
      */
-    public void loadMonthlySummary(AppDatabase database, ExecutorService executorService,
-                                   TextView tvReceitas, TextView tvDespesas,
-                                   MovimentoAdapter adapter, Runnable onDataLoaded) {
-        executorService.execute(() -> {
-            // Obter limites do mês atual
-            java.util.Calendar calendar = java.util.Calendar.getInstance();
-            calendar.set(java.util.Calendar.DAY_OF_MONTH, 1);
-            calendar.set(java.util.Calendar.HOUR_OF_DAY, 0);
-            calendar.set(java.util.Calendar.MINUTE, 0);
-            calendar.set(java.util.Calendar.SECOND, 0);
-            calendar.set(java.util.Calendar.MILLISECOND, 0);
-            long monthStart = calendar.getTimeInMillis();
+    public void setupBottomNavigation(int selectedItemId) {
+        com.google.android.material.bottomnavigation.BottomNavigationView bottomNav =
+                mA.findViewById(R.id.idBottomNavBar);
 
-            calendar.set(java.util.Calendar.DAY_OF_MONTH,
-                    calendar.getActualMaximum(java.util.Calendar.DAY_OF_MONTH));
-            calendar.set(java.util.Calendar.HOUR_OF_DAY, 23);
-            calendar.set(java.util.Calendar.MINUTE, 59);
-            calendar.set(java.util.Calendar.SECOND, 59);
-            long monthEnd = calendar.getTimeInMillis();
+        if (bottomNav == null) {
+            Log.w(STAMP, "BottomNavigationView não encontrada");
+            return;
+        }
 
-            // Obter todos os movimentos
-            List<Movimento> allMovimentos = database.movimentoDao().getAll();
+        bottomNav.setSelectedItemId(selectedItemId);
 
-            double totalReceitas = 0.0;
-            double totalDespesas = 0.0;
+        bottomNav.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
 
-            // Filtrar e calcular mês atual
-            List<Movimento> monthMovimentos = new java.util.ArrayList<>();
-            for (Movimento m : allMovimentos) {
-                if (m.getData() >= monthStart && m.getData() <= monthEnd) {
-                    monthMovimentos.add(m);
-                    if (m.getTipo().equalsIgnoreCase("receita")) {
-                        totalReceitas += m.getValor();
-                    } else {
-                        totalDespesas += m.getValor();
-                    }
-                }
+            if (itemId == R.id.nav_home && !(mA instanceof MainActivity)) {
+                Log.d(STAMP, "Navegação: Home");
+                Intent intent = new Intent(mA, MainActivity.class);
+                mA.startActivity(intent);
+                mA.finish();
+                return true;
+            } else if (itemId == R.id.nav_transactions && !(mA instanceof TransactionHubActivity)) {
+                Log.d(STAMP, "Navegação: In & Out");
+                Intent intent = new Intent(mA, TransactionHubActivity.class);
+                mA.startActivity(intent);
+                mA.finish();
+                return true;
+            } else if (itemId == R.id.nav_settings && !(mA instanceof SettingsActivity)) {
+                Log.d(STAMP, "Navegação: Definições");
+                Intent intent = new Intent(mA, SettingsActivity.class);
+                mA.startActivity(intent);
+                mA.finish();
+                return true;
             }
 
-            double finalReceitas = totalReceitas;
-            double finalDespesas = totalDespesas;
-
-            mA.runOnUiThread(() -> {
-                String receitasText = String.format(java.util.Locale.getDefault(),
-                        "%.2f €", finalReceitas);
-                String despesasText = String.format(java.util.Locale.getDefault(),
-                        "%.2f €", finalDespesas);
-
-                tvReceitas.setText(receitasText);
-                tvDespesas.setText(despesasText);
-                adapter.setMovimentos(monthMovimentos);
-
-                Log.d(STAMP, "Receitas mensais: " + receitasText +
-                        ", Despesas mensais: " + despesasText);
-                Log.d(STAMP, "Total de movimentos: " + allMovimentos.size() +
-                        ", Movimentos este mês: " + monthMovimentos.size());
-
-                // Executar callback se fornecido
-                if (onDataLoaded != null) {
-                    onDataLoaded.run();
-                }
-            });
+            return false;
         });
     }
-
 }

@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.aftek.walletly.database.Movimento;
@@ -46,19 +47,72 @@ public class MovimentoAdapter extends RecyclerView.Adapter<MovimentoAdapter.Movi
     }
 
     /**
-     * Atualiza a lista de movimentos e notifica o adapter
+     * Atualiza a lista de movimentos exibidos
+     * Usa DiffUtil para calcular diferenças e atualizar apenas itens alterados
+     * Isto melhora a performance e adiciona animações automáticas
      *
      * @param movimentos Nova lista de movimentos
      */
     public void setMovimentos(List<Movimento> movimentos) {
-        this.mMovimentos = movimentos != null ? movimentos : new ArrayList<>();
-        notifyDataSetChanged();
+        List<Movimento> newList = movimentos != null ? movimentos : new ArrayList<>();
+
+        // Calcula as diferenças entre a lista antiga e a nova
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MovimentoDiffCallback(this.mMovimentos, newList));
+
+        // Atualiza a lista
+        this.mMovimentos = newList;
+
+        // Notifica apenas as mudanças específicas com animações
+        diffResult.dispatchUpdatesTo(this);
+    }
+
+    /**
+     * Callback para o DiffUtil calcular diferenças entre listas de movimentos
+     * Compara IDs e conteúdo para determinar mudanças
+     */
+    private static class MovimentoDiffCallback extends DiffUtil.Callback {
+        private final List<Movimento> oldList;
+        private final List<Movimento> newList;
+
+        public MovimentoDiffCallback(List<Movimento> oldList, List<Movimento> newList) {
+            this.oldList = oldList;
+            this.newList = newList;
+        }
+
+        @Override
+        public int getOldListSize() {
+            return oldList.size();
+        }
+
+        @Override
+        public int getNewListSize() {
+            return newList.size();
+        }
+
+        @Override
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+            // Compara se são o mesmo item (mesmo ID)
+            return oldList.get(oldItemPosition).getId() == newList.get(newItemPosition).getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+            // Compara se o conteúdo é o mesmo
+            Movimento oldMovimento = oldList.get(oldItemPosition);
+            Movimento newMovimento = newList.get(newItemPosition);
+
+            return oldMovimento.getValor() == newMovimento.getValor() &&
+                    oldMovimento.getDescricao().equals(newMovimento.getDescricao()) &&
+                    oldMovimento.getTipo().equals(newMovimento.getTipo()) &&
+                    oldMovimento.getData() == newMovimento.getData() &&
+                    oldMovimento.getCategoria().equals(newMovimento.getCategoria());
+        }
     }
 
     /**
      * ViewHolder para cada item de movimento na lista
      */
-    public class MovimentoViewHolder extends RecyclerView.ViewHolder {
+    public static class MovimentoViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView mTvDesc;
         private final TextView mTvValor;
@@ -83,10 +137,12 @@ public class MovimentoAdapter extends RecyclerView.Adapter<MovimentoAdapter.Movi
             // Definir valor com cor baseada no tipo
             String valorFormatado = String.format(Locale.getDefault(), "%.2f €", movimento.getValor());
             if (movimento.getTipo().equalsIgnoreCase("receita")) {
-                mTvValor.setText("+ " + valorFormatado);
+                String textoReceita = itemView.getContext().getString(R.string.str_format_income, valorFormatado);
+                mTvValor.setText(textoReceita);
                 mTvValor.setTextColor(itemView.getContext().getColor(R.color.income_green));
             } else {
-                mTvValor.setText("- " + valorFormatado);
+                String textoDespesa = itemView.getContext().getString(R.string.str_format_expense, valorFormatado);
+                mTvValor.setText(textoDespesa);
                 mTvValor.setTextColor(itemView.getContext().getColor(R.color.expense_red));
             }
 
@@ -96,4 +152,3 @@ public class MovimentoAdapter extends RecyclerView.Adapter<MovimentoAdapter.Movi
         }
     }
 }
-

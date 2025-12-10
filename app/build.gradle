@@ -4,11 +4,11 @@ plugins {
 
 android {
     namespace 'net.aftek.walletly'
-    compileSdk 36
+    compileSdkVersion 36
 
     defaultConfig {
         applicationId "net.aftek.walletly"
-        minSdk 23
+        minSdk 24
         targetSdk 36
         versionCode 1
         versionName "1.0"

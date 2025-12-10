@@ -4,19 +4,18 @@
     <!-- activity_main.xml strings -->
     <string name="str_tv_saldo">Gesamtsaldo</string>
     <string name="str_tv_movimentos">Transaktionen</string>
-    <string name="str_fab_adicionar">Einnahme oder Ausgabe hinzufügen</string>
 
     <!-- activity_monthly_sum.xml strings -->
     <string name="str_tv_receitas">Einnahmen</string>
     <string name="str_tv_despesas">Ausgaben</string>
     <string name="str_tv_chart">Monatsdiagramm</string>
     <string name="str_ib_back">Zurück</string>
+    <string name="str_dataset_label">Täglicher Saldo</string>
 
     <!-- activity_add_income.xml strings -->
     <string name="str_et_valor_receita">Einnahmenbetrag</string>
     <string name="str_et_desc_receita">Einnahmenbeschreibung</string>
     <string name="str_btn_guardar">Speichern</string>
-    <string name="str_spn_categorias">Kategorien</string>
 
     <!-- activity_add_expense.xml strings -->
     <string name="str_et_valor_despesa">Ausgabenbetrag</string>
@@ -26,9 +25,6 @@
     <string name="str_tv_data">Datum</string>
     <string name="str_tv_desc">Beschreibung</string>
 
-    <!-- Popup menu strings -->
-    <string name="str_menu_receita">Einnahme</string>
-    <string name="str_menu_despesa">Ausgabe</string>
 
     <!-- Income categories -->
     <string name="str_cat_select">Kategorie auswählen</string>
@@ -54,5 +50,14 @@
     <string name="str_cat_passes">Monatskarten</string>
     <string name="str_cat_ginasios">Fitnessstudios</string>
     <string name="str_cat_jornais">Zeitungen und Zeitschriften</string>
+
+    <!-- Bottom Navigation strings -->
+    <string name="str_nav_home">Startseite</string>
+    <string name="str_nav_transactions">Ein- und Ausgaben</string>
+    <string name="str_nav_settings">Einstellungen</string>
+
+    <!-- TransactionHub strings -->
+    <string name="str_btn_add_income">Einnahme hinzufügen</string>
+    <string name="str_btn_add_expense">Ausgabe hinzufügen</string>
 
 </resources>

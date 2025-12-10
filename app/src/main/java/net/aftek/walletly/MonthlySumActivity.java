@@ -20,7 +20,6 @@ import net.aftek.walletly.database.Movimento;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -49,15 +48,7 @@ public class MonthlySumActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(STAMP, "onCreate iniciado");
-        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_monthly_sum);
-        /*
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-         */
 
         init();
     }
@@ -72,7 +63,7 @@ public class MonthlySumActivity extends AppCompatActivity {
         mTvDespesas = findViewById(R.id.idTvDespesas);
         mChartMensal = findViewById(R.id.idChartMensal);
         mRvMovimentos = findViewById(R.id.idRvMovimentos);
-        mIbVoltar = findViewById(R.id.idIbBack3);
+        mIbVoltar = findViewById(R.id.idIbBack);
         mUtils = new Utils(this);
 
         // Database e Executor
@@ -148,11 +139,16 @@ public class MonthlySumActivity extends AppCompatActivity {
                 mTvReceitas.setText(receitasText);
                 mTvDespesas.setText(despesasText);
 
-                // Carregar transações do MÊS ATUAL no RecyclerView
-                mAdapter.setMovimentos(monthMovimentos);
-
                 // Atualizar gráfico com saldos diários
                 updateChartWithTransactions(monthMovimentos);
+
+                // Ordenar transações por data (mais recentes primeiro) para o RecyclerView
+                monthMovimentos.sort((m1, m2) -> {
+                    return Long.compare(m2.getData(), m1.getData()); // DESC
+                });
+
+                // Carregar transações do MÊS ATUAL no RecyclerView
+                mAdapter.setMovimentos(monthMovimentos);
 
                 Log.d(STAMP, "Total de movimentos: " + allMovimentos.size() + ", Movimentos este mês: " + monthMovimentos.size());
 
@@ -173,12 +169,7 @@ public class MonthlySumActivity extends AppCompatActivity {
         Log.d(STAMP, "Atualizando gráfico com " + movimentos.size() + " movimentos do mês");
 
         // Ordenar transações por data (mais antigas primeiro)
-        Collections.sort(movimentos, new Comparator<Movimento>() {
-            @Override
-            public int compare(Movimento m1, Movimento m2) {
-                return Long.compare(m1.getData(), m2.getData());
-            }
-        });
+        movimentos.sort(Comparator.comparingLong(Movimento::getData));
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -233,7 +224,7 @@ public class MonthlySumActivity extends AppCompatActivity {
         Log.d(STAMP, "Total de pontos no gráfico: " + entries.size());
 
         // Criar dataset
-        LineDataSet dataSet = new LineDataSet(entries, "Saldo Diário");
+        LineDataSet dataSet = new LineDataSet(entries, getString(R.string.str_dataset_label));
 
         // Estilizar a linha
         dataSet.setColor(getColor(R.color.text_primary));

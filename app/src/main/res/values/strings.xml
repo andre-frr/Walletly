@@ -5,19 +5,18 @@
     <string name="str_tv_saldo">Saldo Total</string>
     <string name="str_tv_default" translatable="false">0.00 €</string>
     <string name="str_tv_movimentos">Movimentos</string>
-    <string name="str_fab_adicionar">Adicionar Receita ou Despesa</string>
 
     <!-- activity_monthly_sum.xml strings -->
     <string name="str_tv_receitas">Receitas</string>
     <string name="str_tv_despesas">Despesas</string>
     <string name="str_tv_chart">Gráfico Mensal</string>
     <string name="str_ib_back">Voltar para trás</string>
+    <string name="str_dataset_label">Saldo Diário</string>
 
     <!-- activity_add_income.xml strings -->
     <string name="str_et_valor_receita">Valor da Receita</string>
     <string name="str_et_desc_receita">Descrição da Receita</string>
     <string name="str_btn_guardar">Guardar</string>
-    <string name="str_spn_categorias">Categorias</string>
 
     <!-- activity_add_expense.xml strings -->
     <string name="str_et_valor_despesa">Valor da Despesa</string>
@@ -26,10 +25,9 @@
     <!-- history_item.xml strings -->
     <string name="str_tv_data">Data</string>
     <string name="str_tv_desc">Descrição</string>
+    <string name="str_format_income" translatable="false">+ %s</string>
+    <string name="str_format_expense" translatable="false">- %s</string>
 
-    <!-- Popup menu strings -->
-    <string name="str_menu_receita">Receita</string>
-    <string name="str_menu_despesa">Despesa</string>
 
     <!-- Income categories -->
     <string name="str_cat_select">Selecione a categoria</string>
@@ -55,5 +53,14 @@
     <string name="str_cat_passes">Passes Mensais</string>
     <string name="str_cat_ginasios">Ginásios</string>
     <string name="str_cat_jornais">Jornais e Revistas</string>
+
+    <!-- Bottom Navigation strings -->
+    <string name="str_nav_home">Home</string>
+    <string name="str_nav_transactions">In &amp; Out</string>
+    <string name="str_nav_settings">Definições</string>
+
+    <!-- TransactionHub strings -->
+    <string name="str_btn_add_income">Adicionar Receita</string>
+    <string name="str_btn_add_expense">Adicionar Despesa</string>
 
 </resources>
