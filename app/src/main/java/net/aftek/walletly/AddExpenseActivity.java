@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import net.aftek.walletly.database.AppDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,7 +22,7 @@ public class AddExpenseActivity extends AppCompatActivity {
 
     public final static String STAMP = "@AddExpenseActivity";
 
-    // Membros de dados
+    // Membros de Dados
     ImageButton mIbVoltar;
     EditText mEtValorDespesa, mEtDescDespesa;
     Spinner mSpnCategorias;
@@ -39,6 +38,11 @@ public class AddExpenseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_expense);
 
         init();
+    }
+
+    @Override
+    protected void attachBaseContext(android.content.Context newBase) {
+        super.attachBaseContext(LocaleHelper.setLocale(newBase));
     }
 
     /**
@@ -75,25 +79,12 @@ public class AddExpenseActivity extends AppCompatActivity {
 
     /**
      * Popular spinner com categorias de despesa
+     * Utiliza CategoryManager centralizado (DRY)
      */
     private void expenseCategories() {
-        List<String> categorias = new ArrayList<>();
-        categorias.add(getString(R.string.str_cat_select));
-        categorias.add(getString(R.string.str_cat_despesas_gerais));
-        categorias.add(getString(R.string.str_cat_saude));
-        categorias.add(getString(R.string.str_cat_educacao));
-        categorias.add(getString(R.string.str_cat_habitacao));
-        categorias.add(getString(R.string.str_cat_lares));
-        categorias.add(getString(R.string.str_cat_reparacao_veiculos));
-        categorias.add(getString(R.string.str_cat_restauracao));
-        categorias.add(getString(R.string.str_cat_cabeleireiros));
-        categorias.add(getString(R.string.str_cat_veterinarias));
-        categorias.add(getString(R.string.str_cat_passes));
-        categorias.add(getString(R.string.str_cat_ginasios));
-        categorias.add(getString(R.string.str_cat_jornais));
-        categorias.add(getString(R.string.str_cat_outras));
-
+        List<String> categorias = CategoryManager.getExpenseCategories(this);
         mUtils.populateSpinner(mSpnCategorias, categorias);
+        Log.d(STAMP, "Categorias de despesa carregadas: " + categorias.size() + " itens");
     }
 
     /**

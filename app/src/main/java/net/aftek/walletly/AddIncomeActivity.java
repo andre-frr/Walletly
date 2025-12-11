@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import net.aftek.walletly.database.AppDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,7 +22,7 @@ public class AddIncomeActivity extends AppCompatActivity {
 
     public final static String STAMP = "@AddIncomeActivity";
 
-    // Membros de dados
+    // Membros de Dados
     ImageButton mIbVoltar;
     EditText mEtValorReceita, mEtDescReceita;
     Spinner mSpnCategorias;
@@ -39,6 +38,11 @@ public class AddIncomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_income);
 
         init();
+    }
+
+    @Override
+    protected void attachBaseContext(android.content.Context newBase) {
+        super.attachBaseContext(LocaleHelper.setLocale(newBase));
     }
 
     /**
@@ -75,20 +79,12 @@ public class AddIncomeActivity extends AppCompatActivity {
 
     /**
      * Popular spinner com categorias de receita
+     * Utiliza CategoryManager centralizado (DRY)
      */
     private void incomeCategories() {
-        List<String> categorias = new ArrayList<>();
-        categorias.add(getString(R.string.str_cat_select));
-        categorias.add(getString(R.string.str_cat_salario));
-        categorias.add(getString(R.string.str_cat_freelance));
-        categorias.add(getString(R.string.str_cat_investimentos));
-        categorias.add(getString(R.string.str_cat_rendas));
-        categorias.add(getString(R.string.str_cat_vendas));
-        categorias.add(getString(R.string.str_cat_reembolsos));
-        categorias.add(getString(R.string.str_cat_presentes));
-        categorias.add(getString(R.string.str_cat_outras));
-
+        List<String> categorias = CategoryManager.getIncomeCategories(this);
         mUtils.populateSpinner(mSpnCategorias, categorias);
+        Log.d(STAMP, "Categorias de receita carregadas: " + categorias.size() + " itens");
     }
 
     /**

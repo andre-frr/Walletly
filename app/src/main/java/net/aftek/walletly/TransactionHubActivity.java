@@ -28,6 +28,11 @@ public class TransactionHubActivity extends AppCompatActivity {
         init();
     }
 
+    @Override
+    protected void attachBaseContext(android.content.Context newBase) {
+        super.attachBaseContext(LocaleHelper.setLocale(newBase));
+    }
+
     /**
      * Inicializa os componentes da activity
      */

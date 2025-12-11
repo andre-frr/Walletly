@@ -96,7 +96,10 @@ public class Utils {
         // Validação do valor
         String valorStr = etValor.getText().toString().trim();
         if (valorStr.isEmpty()) {
-            showToast("Por favor, insira o valor " + (tipo.equals("receita") ? "da receita" : "da despesa"));
+            String message = tipo.equals("receita")
+                    ? mA.getString(R.string.str_toast_insert_income_value)
+                    : mA.getString(R.string.str_toast_insert_expense_value);
+            showToast(message);
             return;
         }
 
@@ -104,24 +107,24 @@ public class Utils {
         try {
             valor = Double.parseDouble(valorStr);
             if (valor <= 0) {
-                showToast("O valor deve ser maior que zero");
+                showToast(mA.getString(R.string.str_toast_value_greater_zero));
                 return;
             }
         } catch (NumberFormatException e) {
-            showToast("Valor inválido");
+            showToast(mA.getString(R.string.str_toast_invalid_value));
             return;
         }
 
         // Validação da descrição
         String descricao = etDescricao.getText().toString().trim();
         if (descricao.isEmpty()) {
-            showToast("Por favor, insira uma descrição");
+            showToast(mA.getString(R.string.str_toast_insert_description));
             return;
         }
 
         // Validação da categoria
         if (spnCategoria.getSelectedItemPosition() == 0) {
-            showToast("Por favor, selecione uma categoria");
+            showToast(mA.getString(R.string.str_toast_select_category));
             return;
         }
 
@@ -140,7 +143,9 @@ public class Utils {
 
                 // Voltar para a UI thread para mostrar o toast e navegar
                 mA.runOnUiThread(() -> {
-                    String mensagem = tipo.equals("receita") ? "Receita guardada com sucesso!" : "Despesa guardada com sucesso!";
+                    String mensagem = tipo.equals("receita")
+                            ? mA.getString(R.string.str_toast_income_saved)
+                            : mA.getString(R.string.str_toast_expense_saved);
                     showToast(mensagem);
                     Log.d(STAMP, "Navegando de volta para TransactionHub");
                     Intent intent = new Intent(mA, TransactionHubActivity.class);
@@ -149,7 +154,7 @@ public class Utils {
                 });
             } catch (Exception e) {
                 Log.e(STAMP, "Erro ao inserir movimento na BD: " + e.getMessage());
-                mA.runOnUiThread(() -> showToast("Erro ao guardar"));
+                mA.runOnUiThread(() -> showToast(mA.getString(R.string.str_toast_save_error)));
             }
         });
     }

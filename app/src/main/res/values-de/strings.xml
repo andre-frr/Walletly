@@ -65,5 +65,18 @@
     <string name="str_theme_light">Hell</string>
     <string name="str_theme_dark">Dunkel</string>
     <string name="str_theme_system">System</string>
+    <string name="str_setting_language">Sprache</string>
+    <string name="str_language_system">System</string>
+
+    <!-- Toast messages -->
+    <string name="str_toast_insert_income_value">Bitte geben Sie den Einnahmenbetrag ein</string>
+    <string name="str_toast_insert_expense_value">Bitte geben Sie den Ausgabenbetrag ein</string>
+    <string name="str_toast_value_greater_zero">Der Wert muss größer als null sein</string>
+    <string name="str_toast_invalid_value">Ungültiger Wert</string>
+    <string name="str_toast_insert_description">Bitte geben Sie eine Beschreibung ein</string>
+    <string name="str_toast_select_category">Bitte wählen Sie eine Kategorie</string>
+    <string name="str_toast_income_saved">Einnahme erfolgreich gespeichert!</string>
+    <string name="str_toast_expense_saved">Ausgabe erfolgreich gespeichert!</string>
+    <string name="str_toast_save_error">Fehler beim Speichern</string>
 
 </resources>

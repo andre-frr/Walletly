@@ -44,7 +44,7 @@
             android:inputType="numberDecimal"
             android:textSize="16sp"
             android:fontFamily="@font/stack_sans_notch"
-            android:background="@drawable/res_et_outline" />
+            android:background="@drawable/res_field_outline" />
 
         <EditText
             android:id="@+id/idEtDescReceita"
@@ -57,7 +57,7 @@
             android:inputType="textCapSentences"
             android:textSize="16sp"
             android:fontFamily="@font/stack_sans_notch"
-            android:background="@drawable/res_et_outline" />
+            android:background="@drawable/res_field_outline" />
 
         <Spinner
             android:id="@+id/idSpnCategorias"
@@ -68,7 +68,7 @@
             android:paddingEnd="12dp"
             android:fontFamily="@font/stack_sans_notch"
             android:popupElevation="2dp"
-            android:background="@drawable/res_et_outline" />
+            android:background="@drawable/res_field_outline" />
 
         <Button
             android:id="@+id/idBtnGuardar"

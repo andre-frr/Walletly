@@ -9,18 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import net.aftek.walletly.database.AppDatabase;
 import net.aftek.walletly.database.Movimento;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
@@ -51,6 +45,11 @@ public class MonthlySumActivity extends AppCompatActivity {
         setContentView(R.layout.activity_monthly_sum);
 
         init();
+    }
+
+    @Override
+    protected void attachBaseContext(android.content.Context newBase) {
+        super.attachBaseContext(LocaleHelper.setLocale(newBase));
     }
 
     /**
@@ -159,120 +158,12 @@ public class MonthlySumActivity extends AppCompatActivity {
 
     /**
      * Atualiza o gráfico com os saldos diários do mês
-     * Usa o padrão da indústria financeira: um ponto por dia com saldo do final do dia
+     * Delega a lógica complexa ao ChartHelper (KISS)
      *
      * @param movimentos Lista de movimentos do mês atual
      */
     private void updateChartWithTransactions(List<Movimento> movimentos) {
-        List<Entry> entries = new ArrayList<>();
-
-        Log.d(STAMP, "Atualizando gráfico com " + movimentos.size() + " movimentos do mês");
-
-        // Ordenar transações por data (mais antigas primeiro)
-        movimentos.sort(Comparator.comparingLong(Movimento::getData));
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-
-        // Calcular saldo final de cada dia do mês
-        double[] dailyBalances = new double[maxDay + 1]; // Índice 0 não usado, 1-31 para dias
-        double runningBalance = 0.0;
-
-        // Processar todas as transações e calcular saldos diários
-        for (Movimento m : movimentos) {
-            calendar.setTimeInMillis(m.getData());
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-            // Atualizar saldo corrente
-            if (m.getTipo().equalsIgnoreCase("receita")) {
-                runningBalance += m.getValor();
-            } else if (m.getTipo().equalsIgnoreCase("despesa")) {
-                runningBalance -= m.getValor();
-            }
-
-            // Guardar saldo para este dia (será sobrescrito se houver múltiplas transações no mesmo dia)
-            dailyBalances[day] = runningBalance;
-            Log.d(STAMP, "Dia " + day + ": " + m.getTipo() + " " + m.getValor() + "€ → Saldo: " + runningBalance + "€");
-        }
-
-        // Propagar saldos: se um dia não tem transações, manter o saldo do dia anterior
-        double lastBalance = 0.0;
-        for (int day = 1; day <= maxDay; day++) {
-            if (dailyBalances[day] == 0.0 && runningBalance != 0.0) {
-                // Sem transações neste dia, usar saldo do dia anterior
-                dailyBalances[day] = lastBalance;
-            } else {
-                lastBalance = dailyBalances[day];
-            }
-        }
-
-        // Criar entradas do gráfico para cada dia
-        for (int day = 1; day <= maxDay; day++) {
-            entries.add(new Entry(day, (float) dailyBalances[day]));
-        }
-
-        // Se não houver transações, mostrar linha plana em 0
-        if (movimentos.isEmpty()) {
-            Log.d(STAMP, "Nenhuma transação este mês - mostrando linha plana");
-            for (int day = 1; day <= maxDay; day++) {
-                entries.add(new Entry(day, 0f));
-            }
-        }
-
-        // Entradas já estão ordenadas por data de transação, não é necessário ordenar novamente
-        Log.d(STAMP, "Total de pontos no gráfico: " + entries.size());
-
-        // Criar dataset
-        LineDataSet dataSet = new LineDataSet(entries, getString(R.string.str_dataset_label));
-
-        // Estilizar a linha
-        dataSet.setColor(getColor(R.color.text_primary));
-        dataSet.setLineWidth(2.5f);
-        dataSet.setCircleColor(getColor(R.color.text_primary));
-        dataSet.setCircleRadius(3f);
-        dataSet.setDrawCircleHole(false);
-        dataSet.setValueTextSize(9f);
-        dataSet.setDrawValues(false); // Esconder valores nos pontos para visual mais limpo
-        dataSet.setDrawFilled(true);
-        dataSet.setFillColor(getColor(R.color.text_secondary));
-        dataSet.setFillAlpha(50);
-
-        // Criar LineData
-        LineData lineData = new LineData(dataSet);
-
-        // Configurar gráfico
-        mChartMensal.setData(lineData);
-        mChartMensal.getDescription().setEnabled(false);
-        mChartMensal.setTouchEnabled(true);
-        mChartMensal.setDragEnabled(true);
-        mChartMensal.setScaleEnabled(false);
-        mChartMensal.setPinchZoom(false);
-        mChartMensal.setDrawGridBackground(false);
-
-        // Configurar eixo X (dias do mês - formato padrão de apps financeiros)
-        XAxis xAxis = mChartMensal.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setGranularity(1f);
-        xAxis.setDrawGridLines(false);
-        xAxis.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                return String.valueOf((int) value);
-            }
-        });
-
-        // Configurar eixo Y (valores de saldo)
-        mChartMensal.getAxisLeft().setDrawGridLines(true);
-        mChartMensal.getAxisLeft().setGridColor(getColor(R.color.text_secondary));
-        mChartMensal.getAxisLeft().setGridLineWidth(0.5f);
-        mChartMensal.getAxisRight().setEnabled(false);
-
-        // Animar
-        mChartMensal.animateX(1000);
-        mChartMensal.invalidate();
-
-        Log.d(STAMP, "Gráfico atualizado com " + entries.size() + " pontos de dados");
+        ChartHelper.updateMonthlyChart(mChartMensal, movimentos, this);
     }
 
     @Override

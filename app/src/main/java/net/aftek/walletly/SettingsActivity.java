@@ -21,12 +21,15 @@ public class SettingsActivity extends AppCompatActivity {
     public final static String STAMP = "@SettingsActivity";
     private static final String PREFS_NAME = "WalletlyPrefs";
     private static final String PREF_THEME = "theme";
+    private static final String PREF_LANGUAGE = "language";
 
     // Membros de Dados
     Utils mUtils;
     Spinner mSpnTheme;
+    Spinner mSpnLanguage;
     SharedPreferences mPreferences;
-    boolean isInitializing = true;
+    boolean isInitializingTheme = true;
+    boolean isInitializingLanguage = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,11 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         init();
+    }
+
+    @Override
+    protected void attachBaseContext(android.content.Context newBase) {
+        super.attachBaseContext(LocaleHelper.setLocale(newBase));
     }
 
     /**
@@ -56,16 +64,13 @@ public class SettingsActivity extends AppCompatActivity {
         themeOptions.add(getString(R.string.str_theme_system));
         mUtils.populateSpinner(mSpnTheme, themeOptions);
 
-        // Carregar tema salvo
-        loadSavedTheme();
-
-        // Configurar listener para mudanças de tema
+        // Configurar listener para mudanças de tema (antes de carregar)
         mSpnTheme.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Evitar aplicar tema durante inicialização
-                if (isInitializing) {
-                    isInitializing = false;
+                if (isInitializingTheme) {
+                    isInitializingTheme = false;
                     return;
                 }
 
@@ -91,6 +96,75 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        // Carregar tema salvo (após configurar listener)
+        loadSavedTheme();
+
+        // Associar spinner de idioma
+        mSpnLanguage = findViewById(R.id.idSpnLanguageSelector);
+
+        // Popular spinner com opções de idioma
+        List<String> languageOptions = new ArrayList<>();
+        languageOptions.add(getString(R.string.str_language_system));
+        languageOptions.add(getString(R.string.str_language_portuguese));
+        languageOptions.add(getString(R.string.str_language_english));
+        languageOptions.add(getString(R.string.str_language_spanish));
+        languageOptions.add(getString(R.string.str_language_german));
+        languageOptions.add(getString(R.string.str_language_french));
+        mUtils.populateSpinner(mSpnLanguage, languageOptions);
+
+        // Configurar listener para mudanças de idioma (antes de carregar)
+        mSpnLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Evitar aplicar idioma durante inicialização
+                if (isInitializingLanguage) {
+                    isInitializingLanguage = false;
+                    return;
+                }
+
+                String languageCode;
+                switch (position) {
+                    case 0: // System
+                        languageCode = LocaleHelper.LANGUAGE_SYSTEM;
+                        Log.d(STAMP, "Idioma sistema selecionado");
+                        break;
+                    case 1: // Portuguese
+                        languageCode = LocaleHelper.LANGUAGE_PORTUGUESE;
+                        Log.d(STAMP, "Português selecionado");
+                        break;
+                    case 2: // English
+                        languageCode = LocaleHelper.LANGUAGE_ENGLISH;
+                        Log.d(STAMP, "English selecionado");
+                        break;
+                    case 3: // Spanish
+                        languageCode = LocaleHelper.LANGUAGE_SPANISH;
+                        Log.d(STAMP, "Español selecionado");
+                        break;
+                    case 4: // German
+                        languageCode = LocaleHelper.LANGUAGE_GERMAN;
+                        Log.d(STAMP, "Deutsch selecionado");
+                        break;
+                    case 5: // French
+                        languageCode = LocaleHelper.LANGUAGE_FRENCH;
+                        Log.d(STAMP, "Français selecionado");
+                        break;
+                    default:
+                        languageCode = LocaleHelper.LANGUAGE_SYSTEM;
+                        break;
+                }
+
+                applyLanguage(languageCode);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Não fazer nada
+            }
+        });
+
+        // Carregar idioma salvo (após configurar listener)
+        loadSavedLanguage();
+
         // Configurar barra de navegação
         mUtils.setupBottomNavigation(R.id.nav_settings);
 
@@ -110,6 +184,7 @@ public class SettingsActivity extends AppCompatActivity {
             spinnerPosition = 1; // Dark
         }
 
+        // Set selection (listener will skip due to initialization flag)
         mSpnTheme.setSelection(spinnerPosition);
 
         Log.d(STAMP, "Tema carregado: " + savedTheme + " (posição spinner: " + spinnerPosition + ")");
@@ -130,5 +205,60 @@ public class SettingsActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(themeMode);
 
         Log.d(STAMP, "Tema aplicado e guardado: " + themeMode);
+    }
+
+    /**
+     * Carrega o idioma salvo nas preferências
+     */
+    private void loadSavedLanguage() {
+        String savedLanguage = LocaleHelper.getSavedLanguage(this);
+
+        int spinnerPosition = 0; // Default: System
+        switch (savedLanguage) {
+            case LocaleHelper.LANGUAGE_SYSTEM:
+                break;
+            case LocaleHelper.LANGUAGE_PORTUGUESE:
+                spinnerPosition = 1;
+                break;
+            case LocaleHelper.LANGUAGE_ENGLISH:
+                spinnerPosition = 2;
+                break;
+            case LocaleHelper.LANGUAGE_SPANISH:
+                spinnerPosition = 3;
+                break;
+            case LocaleHelper.LANGUAGE_GERMAN:
+                spinnerPosition = 4;
+                break;
+            case LocaleHelper.LANGUAGE_FRENCH:
+                spinnerPosition = 5;
+                break;
+        }
+
+        // Set selection (listener will skip due to initialization flag)
+        mSpnLanguage.setSelection(spinnerPosition);
+
+        Log.d(STAMP, "Idioma carregado: " + savedLanguage + " (posição spinner: " + spinnerPosition + ")");
+    }
+
+    /**
+     * Aplica o idioma selecionado e reinicia a activity
+     *
+     * @param languageCode Código do idioma a aplicar
+     */
+    private void applyLanguage(String languageCode) {
+        // Verificar se o idioma realmente mudou
+        String currentLanguage = LocaleHelper.getSavedLanguage(this);
+        if (currentLanguage.equals(languageCode)) {
+            Log.d(STAMP, "Idioma já está aplicado: " + languageCode);
+            return;
+        }
+
+        // Guardar preferência
+        LocaleHelper.setNewLocale(this, languageCode);
+
+        Log.d(STAMP, "Idioma aplicado e guardado: " + languageCode + ", reiniciando activity");
+
+        // Reiniciar activity para aplicar o idioma
+        recreate();
     }
 }

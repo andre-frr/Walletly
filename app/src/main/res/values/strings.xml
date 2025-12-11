@@ -68,5 +68,23 @@
     <string name="str_theme_light">Claro</string>
     <string name="str_theme_dark">Escuro</string>
     <string name="str_theme_system">Sistema</string>
+    <string name="str_setting_language">Idioma</string>
+    <string name="str_language_system">Sistema</string>
+    <string name="str_language_portuguese" translatable="false">Português</string>
+    <string name="str_language_english" translatable="false">English</string>
+    <string name="str_language_spanish" translatable="false">Español</string>
+    <string name="str_language_german" translatable="false">Deutsch</string>
+    <string name="str_language_french" translatable="false">Français</string>
+
+    <!-- Toast messages -->
+    <string name="str_toast_insert_income_value">Por favor, insira o valor da receita</string>
+    <string name="str_toast_insert_expense_value">Por favor, insira o valor da despesa</string>
+    <string name="str_toast_value_greater_zero">O valor deve ser maior que zero</string>
+    <string name="str_toast_invalid_value">Valor inválido</string>
+    <string name="str_toast_insert_description">Por favor, insira uma descrição</string>
+    <string name="str_toast_select_category">Por favor, selecione uma categoria</string>
+    <string name="str_toast_income_saved">Receita guardada com sucesso!</string>
+    <string name="str_toast_expense_saved">Despesa guardada com sucesso!</string>
+    <string name="str_toast_save_error">Erro ao guardar</string>
 
 </resources>

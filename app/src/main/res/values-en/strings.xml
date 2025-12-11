@@ -65,5 +65,18 @@
     <string name="str_theme_light">Light</string>
     <string name="str_theme_dark">Dark</string>
     <string name="str_theme_system">System</string>
+    <string name="str_setting_language">Language</string>
+    <string name="str_language_system">System</string>
+
+    <!-- Toast messages -->
+    <string name="str_toast_insert_income_value">Please enter the income amount</string>
+    <string name="str_toast_insert_expense_value">Please enter the expense amount</string>
+    <string name="str_toast_value_greater_zero">The value must be greater than zero</string>
+    <string name="str_toast_invalid_value">Invalid value</string>
+    <string name="str_toast_insert_description">Please enter a description</string>
+    <string name="str_toast_select_category">Please select a category</string>
+    <string name="str_toast_income_saved">Income saved successfully!</string>
+    <string name="str_toast_expense_saved">Expense saved successfully!</string>
+    <string name="str_toast_save_error">Error saving</string>
 
 </resources>

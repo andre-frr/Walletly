@@ -19,7 +19,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     public final static String STAMP = "@HistoryActivity";
 
-    // Membros de dados
+    // Membros de Dados
     ImageButton mIbVoltar;
     RecyclerView mRvMovimentos;
     Utils mUtils;
@@ -34,6 +34,11 @@ public class HistoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_history);
 
         init();
+    }
+
+    @Override
+    protected void attachBaseContext(android.content.Context newBase) {
+        super.attachBaseContext(LocaleHelper.setLocale(newBase));
     }
 
     /**
