@@ -39,6 +39,18 @@ public class Utils {
     }
 
     /**
+     * Formatar o timestamp para uma string legível
+     *
+     * @param timestamp corresponde à coluna data da tabela Movimento
+     * @return a data em string legível
+     */
+    @androidx.annotation.NonNull
+    public static String formatTimestamp(long timestamp) {
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss", java.util.Locale.getDefault());
+        return sdf.format(new java.util.Date(timestamp));
+    }
+
+    /**
      * Toast genérico
      *
      * @param message mensagem a ser mostrada
@@ -61,18 +73,6 @@ public class Utils {
         );
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinner.setAdapter(adapter);
-    }
-
-    /**
-     * Formatar o timestamp para uma string legível
-     *
-     * @param timestamp corresponde à coluna data da tabela Movimento
-     * @return a data em string legível
-     */
-    @androidx.annotation.NonNull
-    public static String formatTimestamp(long timestamp) {
-        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss", java.util.Locale.getDefault());
-        return sdf.format(new java.util.Date(timestamp));
     }
 
     /**
@@ -299,6 +299,103 @@ public class Utils {
             }
 
             return false;
+        });
+    }
+
+    /**
+     * Exporta todas as transações para um arquivo JSON
+     *
+     * @param database        Instância da base de dados
+     * @param executorService Executor para background thread
+     */
+    public void exportTransactions(AppDatabase database, ExecutorService executorService) {
+        executorService.execute(() -> {
+            try {
+                List<Movimento> allMovimentos = database.movimentoDao().getAll();
+
+                // Converter para JSON
+                org.json.JSONArray jsonArray = new org.json.JSONArray();
+                for (Movimento m : allMovimentos) {
+                    org.json.JSONObject obj = new org.json.JSONObject();
+                    obj.put("tipo", m.getTipo());
+                    obj.put("valor", m.getValor());
+                    obj.put("descricao", m.getDescricao());
+                    obj.put("data", m.getData());
+                    obj.put("categoria", m.getCategoria());
+                    jsonArray.put(obj);
+                }
+
+                // Salvar arquivo
+                String filename = "walletly_backup_" + System.currentTimeMillis() + ".json";
+                java.io.File exportDir = new java.io.File(mA.getExternalFilesDir(null), "exports");
+                if (!exportDir.exists()) {
+                    exportDir.mkdirs();
+                }
+
+                java.io.File file = new java.io.File(exportDir, filename);
+                java.io.FileWriter writer = new java.io.FileWriter(file);
+                writer.write(jsonArray.toString(2));
+                writer.close();
+
+                mA.runOnUiThread(() -> {
+                    showToast(mA.getString(R.string.str_toast_export_success) + ": " + allMovimentos.size() + " " + mA.getString(R.string.str_toast_transactions));
+                    Log.d(STAMP, "Dados exportados para: " + file.getAbsolutePath());
+                });
+
+            } catch (Exception e) {
+                Log.e(STAMP, "Erro ao exportar dados: " + e.getMessage());
+                mA.runOnUiThread(() -> showToast(mA.getString(R.string.str_toast_export_error)));
+            }
+        });
+    }
+
+    /**
+     * Importa transações de um arquivo JSON
+     *
+     * @param fileUri         URI do arquivo a importar
+     * @param database        Instância da base de dados
+     * @param executorService Executor para background thread
+     */
+    public void importTransactions(android.net.Uri fileUri, AppDatabase database, ExecutorService executorService) {
+        executorService.execute(() -> {
+            try {
+                // Ler arquivo
+                java.io.InputStream inputStream = mA.getContentResolver().openInputStream(fileUri);
+                java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(inputStream));
+                StringBuilder jsonString = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    jsonString.append(line);
+                }
+                reader.close();
+
+                // Parse JSON
+                org.json.JSONArray jsonArray = new org.json.JSONArray(jsonString.toString());
+                int importedCount = 0;
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    org.json.JSONObject obj = jsonArray.getJSONObject(i);
+                    Movimento movimento = new Movimento(
+                            obj.getString("tipo"),
+                            obj.getDouble("valor"),
+                            obj.getString("descricao"),
+                            obj.getLong("data"),
+                            obj.getString("categoria")
+                    );
+                    database.movimentoDao().insert(movimento);
+                    importedCount++;
+                }
+
+                int finalCount = importedCount;
+                mA.runOnUiThread(() -> {
+                    showToast(mA.getString(R.string.str_toast_import_success) + ": " + finalCount + " " + mA.getString(R.string.str_toast_transactions));
+                    Log.d(STAMP, "Importados " + finalCount + " movimentos");
+                });
+
+            } catch (Exception e) {
+                Log.e(STAMP, "Erro ao importar dados: " + e.getMessage());
+                mA.runOnUiThread(() -> showToast(mA.getString(R.string.str_toast_import_error)));
+            }
         });
     }
 }

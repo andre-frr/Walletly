@@ -16,13 +16,6 @@ public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase instance;
 
     /**
-     * Obtém o DAO para operações com movimentos
-     *
-     * @return MovimentoDao para acesso à tabela de movimentos
-     */
-    public abstract MovimentoDao movimentoDao();
-
-    /**
      * Obtém a instância única da base de dados (Singleton)
      * Thread-safe para evitar múltiplas instâncias
      *
@@ -39,4 +32,11 @@ public abstract class AppDatabase extends RoomDatabase {
         }
         return instance;
     }
+
+    /**
+     * Obtém o DAO para operações com movimentos
+     *
+     * @return MovimentoDao para acesso à tabela de movimentos
+     */
+    public abstract MovimentoDao movimentoDao();
 }

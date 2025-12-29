@@ -38,46 +38,46 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="24dp"
-            android:importantForAutofill="no"
-            android:padding="12dp"
-            android:hint="@string/str_et_valor_receita"
-            android:inputType="numberDecimal"
-            android:textSize="16sp"
+            android:background="@drawable/res_field_outline"
             android:fontFamily="@font/stack_sans_notch"
-            android:background="@drawable/res_field_outline" />
+            android:hint="@string/str_et_valor_receita"
+            android:importantForAutofill="no"
+            android:inputType="numberDecimal"
+            android:padding="12dp"
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/idEtDescReceita"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="12dp"
-            android:importantForAutofill="no"
-            android:padding="12dp"
-            android:hint="@string/str_et_desc_receita"
-            android:inputType="textCapSentences"
-            android:textSize="16sp"
+            android:background="@drawable/res_field_outline"
             android:fontFamily="@font/stack_sans_notch"
-            android:background="@drawable/res_field_outline" />
+            android:hint="@string/str_et_desc_receita"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences"
+            android:padding="12dp"
+            android:textSize="16sp" />
 
         <Spinner
             android:id="@+id/idSpnCategorias"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="12dp"
+            android:background="@drawable/res_field_outline"
+            android:fontFamily="@font/stack_sans_notch"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            android:fontFamily="@font/stack_sans_notch"
-            android:popupElevation="2dp"
-            android:background="@drawable/res_field_outline" />
+            android:popupElevation="2dp" />
 
         <Button
             android:id="@+id/idBtnGuardar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="12dp"
+            android:backgroundTint="@color/button_primary"
             android:fontFamily="@font/stack_sans_notch"
-            android:text="@string/str_btn_guardar"
-            android:backgroundTint="@color/button_primary" />
+            android:text="@string/str_btn_guardar" />
 
     </LinearLayout>
 

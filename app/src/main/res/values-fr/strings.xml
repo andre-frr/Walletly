@@ -67,6 +67,9 @@
     <string name="str_theme_system">Système</string>
     <string name="str_setting_language">Langue</string>
     <string name="str_language_system">Système</string>
+    <string name="str_setting_data">Gestion des Données</string>
+    <string name="str_btn_export">Exporter les Transactions</string>
+    <string name="str_btn_import">Importer les Transactions</string>
 
     <!-- Toast messages -->
     <string name="str_toast_insert_income_value">Veuillez saisir le montant du revenu</string>
@@ -78,5 +81,10 @@
     <string name="str_toast_income_saved">Revenu enregistré avec succès !</string>
     <string name="str_toast_expense_saved">Dépense enregistrée avec succès !</string>
     <string name="str_toast_save_error">Erreur lors de l\'enregistrement</string>
+    <string name="str_toast_export_success">Données exportées avec succès</string>
+    <string name="str_toast_export_error">Erreur lors de l\'exportation des données</string>
+    <string name="str_toast_import_success">Données importées</string>
+    <string name="str_toast_import_error">Erreur lors de l\'importation des données</string>
+    <string name="str_toast_transactions">transactions</string>
 
 </resources>

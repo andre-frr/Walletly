@@ -75,6 +75,9 @@
     <string name="str_language_spanish" translatable="false">Español</string>
     <string name="str_language_german" translatable="false">Deutsch</string>
     <string name="str_language_french" translatable="false">Français</string>
+    <string name="str_setting_data">Gestão de Dados</string>
+    <string name="str_btn_export">Exportar Transações</string>
+    <string name="str_btn_import">Importar Transações</string>
 
     <!-- Toast messages -->
     <string name="str_toast_insert_income_value">Por favor, insira o valor da receita</string>
@@ -86,5 +89,10 @@
     <string name="str_toast_income_saved">Receita guardada com sucesso!</string>
     <string name="str_toast_expense_saved">Despesa guardada com sucesso!</string>
     <string name="str_toast_save_error">Erro ao guardar</string>
+    <string name="str_toast_export_success">Dados exportados com sucesso</string>
+    <string name="str_toast_export_error">Erro ao exportar dados</string>
+    <string name="str_toast_import_success">Dados importados</string>
+    <string name="str_toast_import_error">Erro ao importar dados</string>
+    <string name="str_toast_transactions">transações</string>
 
 </resources>

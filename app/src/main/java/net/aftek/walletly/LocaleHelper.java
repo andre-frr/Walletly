@@ -16,15 +16,15 @@ import java.util.Locale;
  */
 public class LocaleHelper {
 
-    private static final String STAMP = "@LocaleHelper";
-    private static final String PREFS_NAME = "WalletlyPrefs";
-    private static final String PREF_LANGUAGE = "language";
     public static final String LANGUAGE_SYSTEM = "system";
     public static final String LANGUAGE_PORTUGUESE = "pt";
     public static final String LANGUAGE_ENGLISH = "en";
     public static final String LANGUAGE_SPANISH = "es";
     public static final String LANGUAGE_GERMAN = "de";
     public static final String LANGUAGE_FRENCH = "fr";
+    private static final String STAMP = "@LocaleHelper";
+    private static final String PREFS_NAME = "WalletlyPrefs";
+    private static final String PREF_LANGUAGE = "language";
 
     /**
      * Aplica o idioma salvo nas preferências

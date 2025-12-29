@@ -21,10 +21,10 @@
             android:id="@+id/idIbBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_arrow_backward"
             android:contentDescription="@string/str_ib_back"
-            android:layout_marginBottom="16dp" />
+            android:src="@drawable/ic_arrow_backward" />
 
         <!-- Card: Income & Expenses Summary -->
         <com.google.android.material.card.MaterialCardView

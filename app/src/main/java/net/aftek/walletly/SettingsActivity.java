@@ -1,17 +1,24 @@
 package net.aftek.walletly;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
+import net.aftek.walletly.database.AppDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Activity de definições - configurações da aplicação
@@ -22,12 +29,17 @@ public class SettingsActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "WalletlyPrefs";
     private static final String PREF_THEME = "theme";
     private static final String PREF_LANGUAGE = "language";
+    private static final int PICK_FILE_REQUEST_CODE = 1;
 
     // Membros de Dados
     Utils mUtils;
     Spinner mSpnTheme;
     Spinner mSpnLanguage;
+    Button mBtnExport;
+    Button mBtnImport;
     SharedPreferences mPreferences;
+    AppDatabase mDatabase;
+    ExecutorService mExecutorService;
     boolean isInitializingTheme = true;
     boolean isInitializingLanguage = true;
 
@@ -51,11 +63,31 @@ public class SettingsActivity extends AppCompatActivity {
     void init() {
         mUtils = new Utils(this);
 
+        // Inicializar banco de dados e executor
+        mDatabase = AppDatabase.getInstance(this);
+        mExecutorService = Executors.newSingleThreadExecutor();
+
         // Inicializar SharedPreferences
         mPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
         // Associar views
         mSpnTheme = findViewById(R.id.idSpnThemeSelector);
+        mBtnExport = findViewById(R.id.idBtnExport);
+        mBtnImport = findViewById(R.id.idBtnImport);
+
+        // Configurar botões de export/import
+        mBtnExport.setOnClickListener(v -> {
+            Log.d(STAMP, "Botão exportar clicado");
+            mUtils.exportTransactions(mDatabase, mExecutorService);
+        });
+
+        mBtnImport.setOnClickListener(v -> {
+            Log.d(STAMP, "Botão importar clicado");
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("application/json");
+            startActivityForResult(intent, PICK_FILE_REQUEST_CODE);
+        });
 
         // Popular spinner com opções de tema
         List<String> themeOptions = new ArrayList<>();
@@ -260,5 +292,28 @@ public class SettingsActivity extends AppCompatActivity {
 
         // Reiniciar activity para aplicar o idioma
         recreate();
+    }
+
+    /**
+     * Handle file selection result for import
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_FILE_REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null && data.getData() != null) {
+                Uri uri = data.getData();
+                Log.d(STAMP, "Arquivo selecionado para importar: " + uri.toString());
+                mUtils.importTransactions(uri, mDatabase, mExecutorService);
+            }
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mExecutorService != null && !mExecutorService.isShutdown()) {
+            mExecutorService.shutdown();
+        }
     }
 }

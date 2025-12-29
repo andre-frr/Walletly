@@ -36,17 +36,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
                     android:fontFamily="@font/stack_sans_notch"
                     android:text="@string/str_setting_theme"
-                    android:layout_weight="1"
                     android:textColor="@color/text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -56,11 +56,11 @@
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
+                    android:background="@drawable/res_field_outline"
+                    android:fontFamily="@font/stack_sans_notch"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
-                    android:fontFamily="@font/stack_sans_notch"
-                    android:popupElevation="2dp"
-                    android:background="@drawable/res_field_outline" />
+                    android:popupElevation="2dp" />
 
             </LinearLayout>
 
@@ -77,17 +77,17 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:padding="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
                     android:fontFamily="@font/stack_sans_notch"
                     android:text="@string/str_setting_language"
-                    android:layout_weight="1"
                     android:textColor="@color/text_primary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -97,11 +97,60 @@
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
+                    android:background="@drawable/res_field_outline"
+                    android:fontFamily="@font/stack_sans_notch"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
+                    android:popupElevation="2dp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Data Management Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
                     android:fontFamily="@font/stack_sans_notch"
-                    android:popupElevation="2dp"
-                    android:background="@drawable/res_field_outline" />
+                    android:text="@string/str_setting_data"
+                    android:textColor="@color/text_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/idBtnExport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/button_primary"
+                    android:fontFamily="@font/stack_sans_notch"
+                    android:text="@string/str_btn_export"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/idBtnImport"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/button_primary"
+                    android:fontFamily="@font/stack_sans_notch"
+                    android:text="@string/str_btn_import"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
