@@ -94,5 +94,10 @@
     <string name="str_toast_import_success">Dados importados</string>
     <string name="str_toast_import_error">Erro ao importar dados</string>
     <string name="str_toast_transactions">transações</string>
+    <string name="str_toast_permission_denied">Permissão negada. Não é possível exportar/importar dados sem acesso ao armazenamento</string>
+    <string name="str_permission_storage_title">Permissão de Armazenamento</string>
+    <string name="str_permission_storage_message">O Walletly precisa de acesso ao armazenamento para exportar/importar suas transações. Deseja conceder esta permissão?</string>
+    <string name="str_permission_yes">Sim</string>
+    <string name="str_permission_no">Não</string>
 
 </resources>

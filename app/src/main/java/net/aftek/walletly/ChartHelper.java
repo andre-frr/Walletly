@@ -27,6 +27,13 @@ public class ChartHelper {
     private static final String STAMP = "@ChartHelper";
 
     /**
+     * Construtor privado para prevenir instanciação desta classe utilitária
+     */
+    private ChartHelper() {
+        throw new UnsupportedOperationException("Utility class cannot be instantiated");
+    }
+
+    /**
      * Atualiza o gráfico com os saldos diários do mês
      * Calcula o saldo acumulado dia a dia e exibe no gráfico de linha
      *
@@ -76,9 +83,9 @@ public class ChartHelper {
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
             // Atualizar saldo corrente
-            if (m.getTipo().equalsIgnoreCase("receita")) {
+            if (m.getTipo().equalsIgnoreCase(Utils.TYPE_RECEITA)) {
                 runningBalance += m.getValor();
-            } else if (m.getTipo().equalsIgnoreCase("despesa")) {
+            } else if (m.getTipo().equalsIgnoreCase(Utils.TYPE_DESPESA)) {
                 runningBalance -= m.getValor();
             }
 

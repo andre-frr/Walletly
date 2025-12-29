@@ -6,6 +6,7 @@
     <color name="income_green">#66BB6A</color>
     <color name="expense_red">#EF5350</color>
     <color name="button_primary">#03DAC5</color>
+    <color name="button_text">#000000</color>
     <color name="background_primary">#121212</color>
     <color name="background_secondary">#1E1E1E</color>
     <color name="card_background">#1E1E1E</color>

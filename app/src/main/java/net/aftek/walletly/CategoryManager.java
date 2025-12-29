@@ -13,6 +13,13 @@ import java.util.List;
 public class CategoryManager {
 
     /**
+     * Construtor privado para prevenir instanciação desta classe utilitária
+     */
+    private CategoryManager() {
+        throw new UnsupportedOperationException("Utility class cannot be instantiated");
+    }
+
+    /**
      * Obtém a lista de categorias de receitas
      * Centraliza as categorias para facilitar manutenção (DRY)
      *

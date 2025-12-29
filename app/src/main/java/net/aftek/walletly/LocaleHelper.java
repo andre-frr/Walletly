@@ -27,6 +27,13 @@ public class LocaleHelper {
     private static final String PREF_LANGUAGE = "language";
 
     /**
+     * Construtor privado para prevenir instanciação desta classe utilitária
+     */
+    private LocaleHelper() {
+        throw new UnsupportedOperationException("Utility class cannot be instantiated");
+    }
+
+    /**
      * Aplica o idioma salvo nas preferências
      *
      * @param context Contexto da aplicação
@@ -44,13 +51,11 @@ public class LocaleHelper {
      *
      * @param context  Contexto da aplicação
      * @param language Código do idioma a aplicar
-     * @return Context com o idioma aplicado
      */
-    public static Context setNewLocale(Context context, String language) {
+    public static void setNewLocale(Context context, String language) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         prefs.edit().putString(PREF_LANGUAGE, language).apply();
-        Log.d(STAMP, "Novo idioma guardado e aplicado: " + language);
-        return updateResources(context, language);
+        Log.d(STAMP, "Novo idioma guardado: " + language);
     }
 
     /**
@@ -87,7 +92,7 @@ public class LocaleHelper {
         } else {
             // Usar idioma selecionado
             Log.d(STAMP, "A usar idioma selecionado: " + language);
-            return new Locale(language);
+            return Locale.forLanguageTag(language);
         }
     }
 
@@ -101,8 +106,6 @@ public class LocaleHelper {
     private static Context updateResources(Context context, String language) {
         Locale locale = getLocaleFromLanguageCode(language);
 
-        Locale.setDefault(locale);
-        Log.d(STAMP, "Locale default definido: " + locale);
 
         Resources resources = context.getResources();
         Configuration config = new Configuration(resources.getConfiguration());

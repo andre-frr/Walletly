@@ -20,11 +20,12 @@ import java.util.concurrent.Executors;
  */
 public class AddIncomeActivity extends AppCompatActivity {
 
-    public final static String STAMP = "@AddIncomeActivity";
+    public static final String STAMP = "@AddIncomeActivity";
 
     // Membros de Dados
     ImageButton mIbVoltar;
-    EditText mEtValorReceita, mEtDescReceita;
+    EditText mEtValorReceita;
+    EditText mEtDescReceita;
     Spinner mSpnCategorias;
     Button mBtnGuardar;
     Utils mUtils;
@@ -95,7 +96,7 @@ public class AddIncomeActivity extends AppCompatActivity {
                 mEtValorReceita,
                 mEtDescReceita,
                 mSpnCategorias,
-                "receita",
+                Utils.TYPE_RECEITA,
                 mDatabase,
                 mExecutorService
         );

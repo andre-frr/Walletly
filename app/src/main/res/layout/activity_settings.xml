@@ -71,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/card_background"
             app:cardCornerRadius="12dp"
             app:cardElevation="2dp">
 
@@ -112,6 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/card_background"
             app:cardCornerRadius="12dp"
             app:cardElevation="2dp">
 
@@ -122,10 +124,11 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
                     android:fontFamily="@font/stack_sans_notch"
+                    android:gravity="center_horizontal"
                     android:text="@string/str_setting_data"
                     android:textColor="@color/text_primary"
                     android:textSize="20sp"
@@ -139,7 +142,7 @@
                     android:backgroundTint="@color/button_primary"
                     android:fontFamily="@font/stack_sans_notch"
                     android:text="@string/str_btn_export"
-                    android:textColor="@color/text_primary"
+                    android:textColor="@color/button_text"
                     android:textSize="16sp" />
 
                 <Button
@@ -149,7 +152,7 @@
                     android:backgroundTint="@color/button_primary"
                     android:fontFamily="@font/stack_sans_notch"
                     android:text="@string/str_btn_import"
-                    android:textColor="@color/text_primary"
+                    android:textColor="@color/button_text"
                     android:textSize="16sp" />
 
             </LinearLayout>

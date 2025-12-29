@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
  */
 public class HistoryActivity extends AppCompatActivity {
 
-    public final static String STAMP = "@HistoryActivity";
+    public static final String STAMP = "@HistoryActivity";
 
     // Membros de Dados
     ImageButton mIbVoltar;

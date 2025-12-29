@@ -12,17 +12,17 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class TransactionHubActivity extends AppCompatActivity {
 
-    public final static String STAMP = "@TransactionHubActivity";
+    public static final String STAMP = "@TransactionHubActivity";
 
     // Membros de Dados
-    Button mBtnAddIncome, mBtnAddExpense;
+    Button mBtnAddIncome;
+    Button mBtnAddExpense;
     Utils mUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(STAMP, "onCreate iniciado");
-        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_transaction_hub);
 
         init();

@@ -25,10 +25,11 @@ import java.util.concurrent.Executors;
  */
 public class MonthlySumActivity extends AppCompatActivity {
 
-    public final static String STAMP = "@MonthlySumActivity";
+    public static final String STAMP = "@MonthlySumActivity";
 
     // Membros de Dados
-    TextView mTvReceitas, mTvDespesas;
+    TextView mTvReceitas;
+    TextView mTvDespesas;
     LineChart mChartMensal;
     RecyclerView mRvMovimentos;
     ImageButton mIbVoltar;
@@ -88,72 +89,102 @@ public class MonthlySumActivity extends AppCompatActivity {
      */
     private void loadMonthlySummary() {
         mExecutorService.execute(() -> {
-            // Obter limites do mês atual
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.DAY_OF_MONTH, 1);
-            calendar.set(Calendar.HOUR_OF_DAY, 0);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 0);
-            calendar.set(Calendar.MILLISECOND, 0);
-            long monthStart = calendar.getTimeInMillis();
+            long[] monthBounds = getMonthBounds();
+            long monthStart = monthBounds[0];
+            long monthEnd = monthBounds[1];
 
-            calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-            calendar.set(Calendar.HOUR_OF_DAY, 23);
-            calendar.set(Calendar.MINUTE, 59);
-            calendar.set(Calendar.SECOND, 59);
-            long monthEnd = calendar.getTimeInMillis();
-
-            // Obter todos os movimentos
             List<Movimento> allMovimentos = mDatabase.movimentoDao().getAll();
+            List<Movimento> monthMovimentos = filterMonthMovimentos(allMovimentos, monthStart, monthEnd);
+            double[] totals = calculateMonthlyTotals(monthMovimentos);
 
-            double totalReceitas = 0.0;
-            double totalDespesas = 0.0;
-
-            // Filtrar e calcular mês atual
-            for (Movimento m : allMovimentos) {
-                if (m.getData() >= monthStart && m.getData() <= monthEnd) {
-                    if (m.getTipo().equalsIgnoreCase("receita")) {
-                        totalReceitas += m.getValor();
-                    } else {
-                        totalDespesas += m.getValor();
-                    }
-                }
-            }
-
-            double finalReceitas = totalReceitas;
-            double finalDespesas = totalDespesas;
-
-            // Filtrar transações do mês atual
-            List<Movimento> monthMovimentos = new ArrayList<>();
-            for (Movimento m : allMovimentos) {
-                if (m.getData() >= monthStart && m.getData() <= monthEnd) {
-                    monthMovimentos.add(m);
-                }
-            }
-
-            runOnUiThread(() -> {
-                String receitasText = String.format(Locale.getDefault(), "%.2f €", finalReceitas);
-                String despesasText = String.format(Locale.getDefault(), "%.2f €", finalDespesas);
-
-                mTvReceitas.setText(receitasText);
-                mTvDespesas.setText(despesasText);
-
-                // Atualizar gráfico com saldos diários
-                updateChartWithTransactions(monthMovimentos);
-
-                // Ordenar transações por data (mais recentes primeiro) para o RecyclerView
-                monthMovimentos.sort((m1, m2) -> {
-                    return Long.compare(m2.getData(), m1.getData()); // DESC
-                });
-
-                // Carregar transações do MÊS ATUAL no RecyclerView
-                mAdapter.setMovimentos(monthMovimentos);
-
-                Log.d(STAMP, "Total de movimentos: " + allMovimentos.size() + ", Movimentos este mês: " + monthMovimentos.size());
-
-                Log.d(STAMP, "Receitas mensais: " + receitasText + ", Despesas mensais: " + despesasText);
-            });
+            runOnUiThread(() -> updateUI(totals[0], totals[1], monthMovimentos, allMovimentos.size()));
         });
+    }
+
+    /**
+     * Obtém os limites do mês atual (início e fim)
+     *
+     * @return Array com [monthStart, monthEnd]
+     */
+    private long[] getMonthBounds() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        long monthStart = calendar.getTimeInMillis();
+
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        long monthEnd = calendar.getTimeInMillis();
+
+        return new long[]{monthStart, monthEnd};
+    }
+
+    /**
+     * Filtra movimentos do mês atual
+     *
+     * @param allMovimentos Todos os movimentos
+     * @param monthStart    Início do mês
+     * @param monthEnd      Fim do mês
+     * @return Lista de movimentos do mês
+     */
+    private List<Movimento> filterMonthMovimentos(List<Movimento> allMovimentos, long monthStart, long monthEnd) {
+        List<Movimento> monthMovimentos = new ArrayList<>();
+        for (Movimento m : allMovimentos) {
+            if (m.getData() >= monthStart && m.getData() <= monthEnd) {
+                monthMovimentos.add(m);
+            }
+        }
+        return monthMovimentos;
+    }
+
+    /**
+     * Calcula totais de receitas e despesas do mês
+     *
+     * @param monthMovimentos Movimentos do mês
+     * @return Array com [totalReceitas, totalDespesas]
+     */
+    private double[] calculateMonthlyTotals(List<Movimento> monthMovimentos) {
+        double totalReceitas = 0.0;
+        double totalDespesas = 0.0;
+
+        for (Movimento m : monthMovimentos) {
+            if (m.getTipo().equalsIgnoreCase("receita")) {
+                totalReceitas += m.getValor();
+            } else {
+                totalDespesas += m.getValor();
+            }
+        }
+
+        return new double[]{totalReceitas, totalDespesas};
+    }
+
+    /**
+     * Atualiza a UI com os dados mensais
+     *
+     * @param receitas        Total de receitas
+     * @param despesas        Total de despesas
+     * @param monthMovimentos Movimentos do mês
+     * @param totalMovimentos Total de todos os movimentos
+     */
+    private void updateUI(double receitas, double despesas, List<Movimento> monthMovimentos, int totalMovimentos) {
+        String receitasText = String.format(Locale.getDefault(), "%.2f €", receitas);
+        String despesasText = String.format(Locale.getDefault(), "%.2f €", despesas);
+
+        mTvReceitas.setText(receitasText);
+        mTvDespesas.setText(despesasText);
+
+        updateChartWithTransactions(monthMovimentos);
+
+        monthMovimentos.sort((m1, m2) -> Long.compare(m2.getData(), m1.getData())); // DESC
+        mAdapter.setMovimentos(monthMovimentos);
+
+        Log.d(STAMP, "Total de movimentos: " + totalMovimentos + ", Movimentos este mês: " + monthMovimentos.size());
+        Log.d(STAMP, "Receitas mensais: " + receitasText + ", Despesas mensais: " + despesasText);
     }
 
     /**

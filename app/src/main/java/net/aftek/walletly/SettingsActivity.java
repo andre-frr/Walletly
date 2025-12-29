@@ -1,8 +1,6 @@
 package net.aftek.walletly;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +8,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -25,11 +25,9 @@ import java.util.concurrent.Executors;
  */
 public class SettingsActivity extends AppCompatActivity {
 
-    public final static String STAMP = "@SettingsActivity";
+    public static final String STAMP = "@SettingsActivity";
     private static final String PREFS_NAME = "WalletlyPrefs";
     private static final String PREF_THEME = "theme";
-    private static final String PREF_LANGUAGE = "language";
-    private static final int PICK_FILE_REQUEST_CODE = 1;
 
     // Membros de Dados
     Utils mUtils;
@@ -40,6 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
     SharedPreferences mPreferences;
     AppDatabase mDatabase;
     ExecutorService mExecutorService;
+    ActivityResultLauncher<String> mFilePickerLauncher;
     boolean isInitializingTheme = true;
     boolean isInitializingLanguage = true;
 
@@ -70,6 +69,16 @@ public class SettingsActivity extends AppCompatActivity {
         // Inicializar SharedPreferences
         mPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
+        // Initialize file picker launcher (Activity Result API)
+        mFilePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                uri -> {
+                    if (uri != null) {
+                        Log.d(STAMP, "Arquivo selecionado para importar: " + uri);
+                        mUtils.importTransactions(uri, mDatabase, mExecutorService);
+                    }
+                });
+
         // Associar views
         mSpnTheme = findViewById(R.id.idSpnThemeSelector);
         mBtnExport = findViewById(R.id.idBtnExport);
@@ -78,15 +87,12 @@ public class SettingsActivity extends AppCompatActivity {
         // Configurar botões de export/import
         mBtnExport.setOnClickListener(v -> {
             Log.d(STAMP, "Botão exportar clicado");
-            mUtils.exportTransactions(mDatabase, mExecutorService);
+            checkStoragePermissionAndExport();
         });
 
         mBtnImport.setOnClickListener(v -> {
             Log.d(STAMP, "Botão importar clicado");
-            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            intent.setType("application/json");
-            startActivityForResult(intent, PICK_FILE_REQUEST_CODE);
+            checkStoragePermissionAndImport();
         });
 
         // Popular spinner com opções de tema
@@ -118,6 +124,10 @@ public class SettingsActivity extends AppCompatActivity {
                     case 2: // System
                         applyTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
                         Log.d(STAMP, "Tema sistema selecionado");
+                        break;
+                    default:
+                        applyTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                        Log.d(STAMP, "Posição inválida, usando tema sistema");
                         break;
                 }
             }
@@ -264,6 +274,9 @@ public class SettingsActivity extends AppCompatActivity {
             case LocaleHelper.LANGUAGE_FRENCH:
                 spinnerPosition = 5;
                 break;
+            default:
+                Log.w(STAMP, "Idioma desconhecido: " + savedLanguage + ", usando idioma sistema");
+                break;
         }
 
         // Set selection (listener will skip due to initialization flag)
@@ -294,19 +307,19 @@ public class SettingsActivity extends AppCompatActivity {
         recreate();
     }
 
+
     /**
-     * Handle file selection result for import
+     * Check storage permission and export if granted
      */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_FILE_REQUEST_CODE && resultCode == RESULT_OK) {
-            if (data != null && data.getData() != null) {
-                Uri uri = data.getData();
-                Log.d(STAMP, "Arquivo selecionado para importar: " + uri.toString());
-                mUtils.importTransactions(uri, mDatabase, mExecutorService);
-            }
-        }
+    private void checkStoragePermissionAndExport() {
+        mUtils.exportTransactions(mDatabase, mExecutorService);
+    }
+
+    /**
+     * Check storage permission and import if granted
+     */
+    private void checkStoragePermissionAndImport() {
+        mFilePickerLauncher.launch("application/json");
     }
 
     @Override

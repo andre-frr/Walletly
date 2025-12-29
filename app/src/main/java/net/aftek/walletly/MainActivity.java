@@ -20,10 +20,11 @@ import java.util.concurrent.Executors;
  */
 public class MainActivity extends AppCompatActivity {
 
-    public final static String STAMP = "@MainActivity";
+    public static final String STAMP = "@MainActivity";
 
     // Membros de Dados
-    MaterialCardView mCardSaldo, mCardMovimentos;
+    MaterialCardView mCardSaldo;
+    MaterialCardView mCardMovimentos;
     TextView mTvEuros;
     RecyclerView mRvMovRecentes;
     Utils mUtils;

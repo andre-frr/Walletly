@@ -1,7 +1,12 @@
 package net.aftek.walletly;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -17,6 +22,7 @@ import net.aftek.walletly.database.Movimento;
 
 import org.jspecify.annotations.NonNull;
 
+import java.io.OutputStream;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
@@ -26,7 +32,9 @@ import java.util.concurrent.ExecutorService;
  */
 public class Utils {
 
-    public final static String STAMP = "@Utils";
+    public static final String STAMP = "@Utils";
+    public static final String TYPE_RECEITA = "receita";
+    public static final String TYPE_DESPESA = "despesa";
     private final Activity mA;
 
     /**
@@ -96,7 +104,7 @@ public class Utils {
         // Validação do valor
         String valorStr = etValor.getText().toString().trim();
         if (valorStr.isEmpty()) {
-            String message = tipo.equals("receita")
+            String message = tipo.equals(TYPE_RECEITA)
                     ? mA.getString(R.string.str_toast_insert_income_value)
                     : mA.getString(R.string.str_toast_insert_expense_value);
             showToast(message);
@@ -143,7 +151,7 @@ public class Utils {
 
                 // Voltar para a UI thread para mostrar o toast e navegar
                 mA.runOnUiThread(() -> {
-                    String mensagem = tipo.equals("receita")
+                    String mensagem = tipo.equals(TYPE_RECEITA)
                             ? mA.getString(R.string.str_toast_income_saved)
                             : mA.getString(R.string.str_toast_expense_saved);
                     showToast(mensagem);
@@ -173,7 +181,7 @@ public class Utils {
 
             // Calcular saldo: somar receitas, subtrair despesas
             for (Movimento m : allMovimentos) {
-                if (m.getTipo().equalsIgnoreCase("receita")) {
+                if (m.getTipo().equalsIgnoreCase(TYPE_RECEITA)) {
                     balance += m.getValor();
                 } else {
                     balance -= m.getValor();
@@ -325,28 +333,50 @@ public class Utils {
                     jsonArray.put(obj);
                 }
 
-                // Salvar arquivo
                 String filename = "walletly_backup_" + System.currentTimeMillis() + ".json";
-                java.io.File exportDir = new java.io.File(mA.getExternalFilesDir(null), "exports");
-                if (!exportDir.exists()) {
-                    exportDir.mkdirs();
-                }
+                String jsonContent = jsonArray.toString(2);
 
-                java.io.File file = new java.io.File(exportDir, filename);
-                java.io.FileWriter writer = new java.io.FileWriter(file);
-                writer.write(jsonArray.toString(2));
-                writer.close();
-
-                mA.runOnUiThread(() -> {
-                    showToast(mA.getString(R.string.str_toast_export_success) + ": " + allMovimentos.size() + " " + mA.getString(R.string.str_toast_transactions));
-                    Log.d(STAMP, "Dados exportados para: " + file.getAbsolutePath());
-                });
+                // Save to Downloads folder using MediaStore API
+                // Android 13+ (API 33+) - No permissions needed
+                // Android 10-12 (API 29-32) - Requires WRITE_EXTERNAL_STORAGE permission
+                // The permission check is done in SettingsActivity before calling this method
+                saveToDownloadsModern(filename, jsonContent, allMovimentos.size());
 
             } catch (Exception e) {
                 Log.e(STAMP, "Erro ao exportar dados: " + e.getMessage());
                 mA.runOnUiThread(() -> showToast(mA.getString(R.string.str_toast_export_error)));
             }
         });
+    }
+
+    /**
+     * Save file to Downloads folder using MediaStore (Android 10+)
+     */
+    private void saveToDownloadsModern(String filename, String content, int count) {
+        try {
+            ContentResolver resolver = mA.getContentResolver();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, filename);
+            contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "application/json");
+            contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
+
+            Uri uri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues);
+            if (uri != null) {
+                try (OutputStream outputStream = resolver.openOutputStream(uri)) {
+                    if (outputStream != null) {
+                        outputStream.write(content.getBytes());
+
+                        mA.runOnUiThread(() -> {
+                            showToast(mA.getString(R.string.str_toast_export_success) + ": " + count + " " + mA.getString(R.string.str_toast_transactions));
+                            Log.d(STAMP, "Dados exportados para Downloads: " + filename);
+                        });
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e(STAMP, "Erro ao exportar dados (modern): " + e.getMessage());
+            mA.runOnUiThread(() -> showToast(mA.getString(R.string.str_toast_export_error)));
+        }
     }
 
     /**

@@ -86,5 +86,10 @@
     <string name="str_toast_import_success">Daten importiert</string>
     <string name="str_toast_import_error">Fehler beim Importieren der Daten</string>
     <string name="str_toast_transactions">Transaktionen</string>
+    <string name="str_toast_permission_denied">Berechtigung verweigert. Daten können ohne Speicherzugriff nicht exportiert/importiert werden</string>
+    <string name="str_permission_storage_title">Speicherberechtigung</string>
+    <string name="str_permission_storage_message">Walletly benötigt Speicherzugriff, um Ihre Transaktionen zu exportieren/importieren. Möchten Sie diese Berechtigung erteilen?</string>
+    <string name="str_permission_yes">Ja</string>
+    <string name="str_permission_no">Nein</string>
 
 </resources>
