@@ -1,5 +1,6 @@
 package net.aftek.walletly;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -59,6 +60,14 @@ public class HistoryActivity extends AppCompatActivity {
         mAdapter = new MovimentoAdapter();
         mUtils.setupRecyclerView(mRvMovimentos, mAdapter);
 
+        // Configurar listener para long click (editar transação)
+        mAdapter.setOnItemLongClickListener(movimento -> {
+            Log.d(STAMP, "Long click na transação ID: " + movimento.getId());
+            Intent intent = new Intent(HistoryActivity.this, EditTransactionActivity.class);
+            intent.putExtra(EditTransactionActivity.EXTRA_TRANSACTION_ID, movimento.getId());
+            startActivity(intent);
+        });
+
         // Carregar todas as transações usando Utils
         mUtils.loadAllTransactions(mAdapter, mDatabase, mExecutorService);
 
@@ -67,6 +76,13 @@ public class HistoryActivity extends AppCompatActivity {
             Log.d(STAMP, "Botão voltar clicado");
             mUtils.navigateToMain();
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Recarregar transações quando voltar da tela de edição
+        mUtils.loadAllTransactions(mAdapter, mDatabase, mExecutorService);
     }
 
     @Override

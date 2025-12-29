@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Storage permissions for API 29-32 (Android 10-12) when writing to Downloads folder -->
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
 
     <application
         android:name=".WalletlyApplication"
@@ -21,6 +14,9 @@
         android:theme="@style/Theme.Walletly">
         <activity
             android:name=".TransactionHubActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditTransactionActivity"
             android:exported="false" />
         <activity
             android:name=".SettingsActivity"

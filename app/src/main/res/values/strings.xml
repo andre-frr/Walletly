@@ -63,6 +63,24 @@
     <string name="str_btn_add_income">Adicionar Receita</string>
     <string name="str_btn_add_expense">Adicionar Despesa</string>
 
+    <!-- Edit Transaction strings -->
+    <string name="str_edit_transaction">Editar Transação</string>
+    <string name="str_edit_income">Editar Receita</string>
+    <string name="str_edit_expense">Editar Despesa</string>
+    <string name="str_et_valor">Valor</string>
+    <string name="str_et_desc">Descrição</string>
+    <string name="str_btn_delete">Eliminar</string>
+    <string name="str_delete_transaction">Eliminar Transação</string>
+    <string name="str_delete_transaction_confirm">Tem certeza de que deseja eliminar esta transação? Esta ação não pode ser desfeita.</string>
+    <string name="str_cancel">Cancelar</string>
+    <string name="str_enter_amount">Por favor, insira o valor</string>
+    <string name="str_enter_description">Por favor, insira uma descrição</string>
+    <string name="str_amount_must_be_positive">O valor deve ser maior que zero</string>
+    <string name="str_invalid_amount">Valor inválido</string>
+    <string name="str_transaction_updated">Transação atualizada com sucesso!</string>
+    <string name="str_transaction_deleted">Transação eliminada com sucesso!</string>
+    <string name="str_error_loading_transaction">Erro ao carregar transação</string>
+
     <!-- Settings strings -->
     <string name="str_setting_theme">Tema</string>
     <string name="str_theme_light">Claro</string>

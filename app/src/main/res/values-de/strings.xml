@@ -60,6 +60,24 @@
     <string name="str_btn_add_income">Einnahme hinzufügen</string>
     <string name="str_btn_add_expense">Ausgabe hinzufügen</string>
 
+    <!-- Edit Transaction strings -->
+    <string name="str_edit_transaction">Transaktion bearbeiten</string>
+    <string name="str_edit_income">Einnahme bearbeiten</string>
+    <string name="str_edit_expense">Ausgabe bearbeiten</string>
+    <string name="str_et_valor">Betrag</string>
+    <string name="str_et_desc">Beschreibung</string>
+    <string name="str_btn_delete">Löschen</string>
+    <string name="str_delete_transaction">Transaktion löschen</string>
+    <string name="str_delete_transaction_confirm">Sind Sie sicher, dass Sie diese Transaktion löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.</string>
+    <string name="str_cancel">Abbrechen</string>
+    <string name="str_enter_amount">Bitte geben Sie den Betrag ein</string>
+    <string name="str_enter_description">Bitte geben Sie eine Beschreibung ein</string>
+    <string name="str_amount_must_be_positive">Der Betrag muss größer als null sein</string>
+    <string name="str_invalid_amount">Ungültiger Betrag</string>
+    <string name="str_transaction_updated">Transaktion erfolgreich aktualisiert!</string>
+    <string name="str_transaction_deleted">Transaktion erfolgreich gelöscht!</string>
+    <string name="str_error_loading_transaction">Fehler beim Laden der Transaktion</string>
+
     <!-- Settings strings -->
     <string name="str_setting_theme">Design</string>
     <string name="str_theme_light">Hell</string>

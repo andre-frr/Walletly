@@ -1,5 +1,6 @@
 package net.aftek.walletly;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.google.android.material.card.MaterialCardView;
 
 import net.aftek.walletly.database.AppDatabase;
 import net.aftek.walletly.database.Movimento;
@@ -32,6 +34,7 @@ public class MonthlySumActivity extends AppCompatActivity {
     TextView mTvDespesas;
     LineChart mChartMensal;
     RecyclerView mRvMovimentos;
+    MaterialCardView mCardMovimentos;
     ImageButton mIbVoltar;
     Utils mUtils;
     AppDatabase mDatabase;
@@ -63,6 +66,7 @@ public class MonthlySumActivity extends AppCompatActivity {
         mTvDespesas = findViewById(R.id.idTvDespesas);
         mChartMensal = findViewById(R.id.idChartMensal);
         mRvMovimentos = findViewById(R.id.idRvMovimentos);
+        mCardMovimentos = findViewById(R.id.idCardMovimentos);
         mIbVoltar = findViewById(R.id.idIbBack);
         mUtils = new Utils(this);
 
@@ -81,6 +85,12 @@ public class MonthlySumActivity extends AppCompatActivity {
         mIbVoltar.setOnClickListener(v -> {
             Log.d(STAMP, "Botão voltar clicado");
             mUtils.navigateToMain();
+        });
+
+        mCardMovimentos.setOnClickListener(v -> {
+            Log.d(STAMP, "Navegando para histórico completo");
+            Intent intent = new Intent(MonthlySumActivity.this, HistoryActivity.class);
+            startActivity(intent);
         });
     }
 

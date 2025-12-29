@@ -22,9 +22,17 @@ import java.util.Locale;
 public class MovimentoAdapter extends RecyclerView.Adapter<MovimentoAdapter.MovimentoViewHolder> {
 
     private List<Movimento> mMovimentos;
+    private OnItemLongClickListener mLongClickListener;
 
     public MovimentoAdapter() {
         this.mMovimentos = new ArrayList<>();
+    }
+
+    /**
+     * Define o listener para cliques longos em itens
+     */
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
+        this.mLongClickListener = listener;
     }
 
     @NonNull
@@ -38,7 +46,7 @@ public class MovimentoAdapter extends RecyclerView.Adapter<MovimentoAdapter.Movi
     @Override
     public void onBindViewHolder(@NonNull MovimentoViewHolder holder, int position) {
         Movimento movimento = mMovimentos.get(position);
-        holder.bind(movimento);
+        holder.bind(movimento, mLongClickListener);
     }
 
     @Override
@@ -64,6 +72,13 @@ public class MovimentoAdapter extends RecyclerView.Adapter<MovimentoAdapter.Movi
 
         // Notifica apenas as mudanças específicas com animações
         diffResult.dispatchUpdatesTo(this);
+    }
+
+    /**
+     * Interface para callbacks de clique longo em itens
+     */
+    public interface OnItemLongClickListener {
+        void onItemLongClick(Movimento movimento);
     }
 
     /**
@@ -128,9 +143,10 @@ public class MovimentoAdapter extends RecyclerView.Adapter<MovimentoAdapter.Movi
         /**
          * Preenche os dados do movimento no layout
          *
-         * @param movimento Movimento a ser exibido
+         * @param movimento         Movimento a ser exibido
+         * @param longClickListener Listener para clique longo
          */
-        public void bind(Movimento movimento) {
+        public void bind(Movimento movimento, OnItemLongClickListener longClickListener) {
             // Definir descrição
             mTvDesc.setText(movimento.getDescricao());
 
@@ -149,6 +165,14 @@ public class MovimentoAdapter extends RecyclerView.Adapter<MovimentoAdapter.Movi
             // Definir data formatada
             String dataFormatada = Utils.formatTimestamp(movimento.getData());
             mTvDate.setText(dataFormatada);
+
+            // Configurar long click listener
+            if (longClickListener != null) {
+                itemView.setOnLongClickListener(v -> {
+                    longClickListener.onItemLongClick(movimento);
+                    return true;
+                });
+            }
         }
     }
 }
