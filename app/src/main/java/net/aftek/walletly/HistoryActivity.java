@@ -14,7 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Activity de histórico - exibe todas as transações
+ * Activity de histórico - mostra todas as transações
  */
 public class HistoryActivity extends AppCompatActivity {
 

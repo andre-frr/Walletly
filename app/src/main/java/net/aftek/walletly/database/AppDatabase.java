@@ -11,7 +11,6 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * Base de dados Room para a aplicação Walletly.
  * Utiliza o padrão Singleton para garantir uma única instância em toda a aplicação.
- * Segue o princípio KISS - implementação simples e direta.
  * Singleton Pattern Justification:
  * - Room databases são thread-safe por design
  * - Criação de múltiplas instâncias causaria inconsistência de dados
@@ -23,28 +22,27 @@ public abstract class AppDatabase extends RoomDatabase {
 
     /**
      * Obtém a instância única da base de dados (Singleton)
-     * Thread-safe usando AtomicReference para evitar múltiplas instâncias
-     * O padrão Singleton é necessário para:
-     * - Evitar criações repetidas da base de dados (operação cara)
-     * - Prevenir conflitos de acesso concorrente
-     * - Garantir consistência dos dados em toda a aplicação
+     * Thread-safe ao usar AtomicReference e sincronização
      *
      * @param context Contexto da aplicação
      * @return Instância única do AppDatabase
      */
     public static AppDatabase getInstance(Context context) {
-        if (instance.get() == null) {
+        AppDatabase db = instance.get();
+        if (db == null) {
             synchronized (AppDatabase.class) {
-                if (instance.get() == null) {
-                    instance.set(Room.databaseBuilder(
+                db = instance.get();
+                if (db == null) {
+                    db = Room.databaseBuilder(
                             context.getApplicationContext(),
                             AppDatabase.class,
                             "walletly_database"
-                    ).build());
+                    ).build();
+                    instance.set(db);
                 }
             }
         }
-        return instance.get();
+        return db;
     }
 
     /**

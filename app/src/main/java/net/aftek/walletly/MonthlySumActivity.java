@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Activity de resumo mensal - exibe receitas, despesas e gráfico do mês atual
+ * Activity de resumo mensal - mostra receitas, despesas e gráfico do mês atual
  */
 public class MonthlySumActivity extends AppCompatActivity {
 
@@ -163,9 +163,9 @@ public class MonthlySumActivity extends AppCompatActivity {
         double totalDespesas = 0.0;
 
         for (Movimento m : monthMovimentos) {
-            if (m.getTipo().equalsIgnoreCase("receita")) {
+            if (Utils.TYPE_RECEITA.equalsIgnoreCase(m.getTipo())) {
                 totalReceitas += m.getValor();
-            } else {
+            } else if (Utils.TYPE_DESPESA.equalsIgnoreCase(m.getTipo())) {
                 totalDespesas += m.getValor();
             }
         }
@@ -199,7 +199,7 @@ public class MonthlySumActivity extends AppCompatActivity {
 
     /**
      * Atualiza o gráfico com os saldos diários do mês
-     * Delega a lógica complexa ao ChartHelper (KISS)
+     * Lógica complexa delegada á classe ChartHelper
      *
      * @param movimentos Lista de movimentos do mês atual
      */

@@ -7,8 +7,6 @@ import java.util.List;
 
 /**
  * Gestor centralizado de categorias
- * Segue o princípio DRY - evita duplicação de listas de categorias
- * Segue o princípio KISS - implementação simples e direta
  */
 public class CategoryManager {
 
@@ -21,7 +19,6 @@ public class CategoryManager {
 
     /**
      * Obtém a lista de categorias de receitas
-     * Centraliza as categorias para facilitar manutenção (DRY)
      *
      * @param context Contexto para aceder aos recursos de strings
      * @return Lista de categorias de receita
@@ -42,7 +39,6 @@ public class CategoryManager {
 
     /**
      * Obtém a lista de categorias de despesas
-     * Centraliza as categorias para facilitar manutenção (DRY)
      *
      * @param context Contexto para aceder aos recursos de strings
      * @return Lista de categorias de despesa

@@ -92,6 +92,4 @@
             android:textColor="@color/button_text" />
 
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-

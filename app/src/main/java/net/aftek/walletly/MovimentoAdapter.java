@@ -17,7 +17,7 @@ import java.util.Locale;
 
 /**
  * Adapter para RecyclerView de movimentos (transações)
- * Exibe cada transação usando o layout history_item.xml
+ * Mostra cada transação com layout history_item.xml
  */
 public class MovimentoAdapter extends RecyclerView.Adapter<MovimentoAdapter.MovimentoViewHolder> {
 
@@ -29,7 +29,7 @@ public class MovimentoAdapter extends RecyclerView.Adapter<MovimentoAdapter.Movi
     }
 
     /**
-     * Define o listener para cliques longos em itens
+     * Define o listener para long clicks em itens
      */
     public void setOnItemLongClickListener(OnItemLongClickListener listener) {
         this.mLongClickListener = listener;
@@ -152,7 +152,7 @@ public class MovimentoAdapter extends RecyclerView.Adapter<MovimentoAdapter.Movi
 
             // Definir valor com cor baseada no tipo
             String valorFormatado = String.format(Locale.getDefault(), "%.2f €", movimento.getValor());
-            if (movimento.getTipo().equalsIgnoreCase("receita")) {
+            if (Utils.TYPE_RECEITA.equalsIgnoreCase(movimento.getTipo())) {
                 String textoReceita = itemView.getContext().getString(R.string.str_format_income, valorFormatado);
                 mTvValor.setText(textoReceita);
                 mTvValor.setTextColor(itemView.getContext().getColor(R.color.income_green));

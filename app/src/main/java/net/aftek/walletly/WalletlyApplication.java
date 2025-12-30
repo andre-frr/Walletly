@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatDelegate;
 /**
  * Classe Application customizada para inicialização global da app
  * Carrega o tema e idioma salvos nas preferências do utilizador
- * Segue o princípio KISS - configuração simples e centralizada
  */
 public class WalletlyApplication extends Application {
 

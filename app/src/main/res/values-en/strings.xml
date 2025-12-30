@@ -104,10 +104,5 @@
     <string name="str_toast_import_success">Data imported</string>
     <string name="str_toast_import_error">Error importing data</string>
     <string name="str_toast_transactions">transactions</string>
-    <string name="str_toast_permission_denied">Permission denied. Cannot export/import data without storage access</string>
-    <string name="str_permission_storage_title">Storage Permission</string>
-    <string name="str_permission_storage_message">Walletly needs storage access to export/import your transactions. Do you want to grant this permission?</string>
-    <string name="str_permission_yes">Yes</string>
-    <string name="str_permission_no">No</string>
 
 </resources>

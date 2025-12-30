@@ -35,6 +35,7 @@ public class Utils {
     public static final String STAMP = "@Utils";
     public static final String TYPE_RECEITA = "receita";
     public static final String TYPE_DESPESA = "despesa";
+
     private final Activity mA;
 
     /**
@@ -181,9 +182,9 @@ public class Utils {
 
             // Calcular saldo: somar receitas, subtrair despesas
             for (Movimento m : allMovimentos) {
-                if (m.getTipo().equalsIgnoreCase(TYPE_RECEITA)) {
+                if (TYPE_RECEITA.equalsIgnoreCase(m.getTipo())) {
                     balance += m.getValor();
-                } else {
+                } else if (TYPE_DESPESA.equalsIgnoreCase(m.getTipo())) {
                     balance -= m.getValor();
                 }
             }

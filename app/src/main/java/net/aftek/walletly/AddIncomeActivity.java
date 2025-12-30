@@ -63,7 +63,6 @@ public class AddIncomeActivity extends AppCompatActivity {
         mDatabase = AppDatabase.getInstance(this);
         mExecutorService = Executors.newSingleThreadExecutor();
 
-        // Popular spinner com categorias
         incomeCategories();
 
         // Comportamentos
@@ -80,7 +79,7 @@ public class AddIncomeActivity extends AppCompatActivity {
 
     /**
      * Popular spinner com categorias de receita
-     * Utiliza CategoryManager centralizado (DRY)
+     * Utiliza a classe CategoryManager
      */
     private void incomeCategories() {
         List<String> categorias = CategoryManager.getIncomeCategories(this);

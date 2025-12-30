@@ -87,12 +87,12 @@ public class SettingsActivity extends AppCompatActivity {
         // Configurar botões de export/import
         mBtnExport.setOnClickListener(v -> {
             Log.d(STAMP, "Botão exportar clicado");
-            checkStoragePermissionAndExport();
+            mUtils.exportTransactions(mDatabase, mExecutorService);
         });
 
         mBtnImport.setOnClickListener(v -> {
             Log.d(STAMP, "Botão importar clicado");
-            checkStoragePermissionAndImport();
+            mFilePickerLauncher.launch("application/json");
         });
 
         // Popular spinner com opções de tema
@@ -102,7 +102,7 @@ public class SettingsActivity extends AppCompatActivity {
         themeOptions.add(getString(R.string.str_theme_system));
         mUtils.populateSpinner(mSpnTheme, themeOptions);
 
-        // Configurar listener para mudanças de tema (antes de carregar)
+        // Configurar listener para mudanças de tema
         mSpnTheme.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -154,7 +154,7 @@ public class SettingsActivity extends AppCompatActivity {
         languageOptions.add(getString(R.string.str_language_french));
         mUtils.populateSpinner(mSpnLanguage, languageOptions);
 
-        // Configurar listener para mudanças de idioma (antes de carregar)
+        // Configurar listener para mudanças de idioma
         mSpnLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -192,6 +192,7 @@ public class SettingsActivity extends AppCompatActivity {
                         break;
                     default:
                         languageCode = LocaleHelper.LANGUAGE_SYSTEM;
+                        Log.w(STAMP, "Posição inválida: " + position + ", usando idioma sistema");
                         break;
                 }
 
@@ -307,20 +308,6 @@ public class SettingsActivity extends AppCompatActivity {
         recreate();
     }
 
-
-    /**
-     * Check storage permission and export if granted
-     */
-    private void checkStoragePermissionAndExport() {
-        mUtils.exportTransactions(mDatabase, mExecutorService);
-    }
-
-    /**
-     * Check storage permission and import if granted
-     */
-    private void checkStoragePermissionAndImport() {
-        mFilePickerLauncher.launch("application/json");
-    }
 
     @Override
     protected void onDestroy() {

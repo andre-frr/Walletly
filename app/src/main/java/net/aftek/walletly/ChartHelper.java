@@ -19,8 +19,6 @@ import java.util.List;
 
 /**
  * Helper para configuração e atualização de gráficos
- * Extrai lógica complexa seguindo o princípio KISS - cada classe tem uma responsabilidade
- * Segue o princípio DRY - centraliza a lógica de gráficos
  */
 public class ChartHelper {
 
@@ -83,9 +81,9 @@ public class ChartHelper {
             int day = calendar.get(Calendar.DAY_OF_MONTH);
 
             // Atualizar saldo corrente
-            if (m.getTipo().equalsIgnoreCase(Utils.TYPE_RECEITA)) {
+            if (Utils.TYPE_RECEITA.equalsIgnoreCase(m.getTipo())) {
                 runningBalance += m.getValor();
-            } else if (m.getTipo().equalsIgnoreCase(Utils.TYPE_DESPESA)) {
+            } else if (Utils.TYPE_DESPESA.equalsIgnoreCase(m.getTipo())) {
                 runningBalance -= m.getValor();
             }
 
@@ -111,7 +109,7 @@ public class ChartHelper {
 
         // Se não houver transações, mostrar linha plana em 0
         if (movimentos.isEmpty()) {
-            Log.d(STAMP, "Nenhuma transação este mês - mostrando linha plana");
+            Log.d(STAMP, "Nenhuma transação este mês");
             for (int day = 1; day <= maxDay; day++) {
                 entries.add(new Entry(day, 0f));
             }

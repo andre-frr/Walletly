@@ -63,7 +63,6 @@ public class AddExpenseActivity extends AppCompatActivity {
         mDatabase = AppDatabase.getInstance(this);
         mExecutorService = Executors.newSingleThreadExecutor();
 
-        // Popular spinner com categorias
         expenseCategories();
 
         // Comportamentos
@@ -80,7 +79,7 @@ public class AddExpenseActivity extends AppCompatActivity {
 
     /**
      * Popular spinner com categorias de despesa
-     * Utiliza CategoryManager centralizado (DRY)
+     * Utiliza a classe CategoryManager
      */
     private void expenseCategories() {
         List<String> categorias = CategoryManager.getExpenseCategories(this);

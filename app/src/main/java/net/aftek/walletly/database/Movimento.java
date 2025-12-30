@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey;
 /**
  * Entidade Room que representa um movimento financeiro (receita ou despesa)
  * Armazenada na tabela "Movimentos" da base de dados
- * Modelo simples seguindo o princípio KISS
  */
 @Entity(tableName = "Movimentos")
 public class Movimento {

@@ -11,8 +11,6 @@ import java.util.Locale;
 
 /**
  * Helper class para gerir mudanças de idioma na aplicação
- * Centraliza a lógica de localização (DRY)
- * Implementação simples e direta (KISS)
  */
 public class LocaleHelper {
 
@@ -47,7 +45,7 @@ public class LocaleHelper {
     }
 
     /**
-     * Salva o idioma selecionado e atualiza o contexto
+     * Guarda o idioma selecionado e atualiza o contexto
      *
      * @param context  Contexto da aplicação
      * @param language Código do idioma a aplicar
@@ -59,7 +57,7 @@ public class LocaleHelper {
     }
 
     /**
-     * Obtém o idioma salvo nas preferências
+     * Obtém o idioma guardado nas preferências
      *
      * @param context Contexto da aplicação
      * @return Código do idioma salvo
@@ -78,22 +76,17 @@ public class LocaleHelper {
      * @return Locale correspondente ao código fornecido
      */
     private static Locale getLocaleFromLanguageCode(String language) {
-        if (LANGUAGE_SYSTEM.equals(language) || language == null || language.isEmpty()) {
+        if (LANGUAGE_SYSTEM.equals(language)) {
             // Usar idioma do sistema (minSdk 24+)
             LocaleList systemLocales = Resources.getSystem().getConfiguration().getLocales();
-            Locale systemLocale;
-            if (systemLocales.isEmpty()) {
-                systemLocale = Locale.getDefault();
-            } else {
-                systemLocale = systemLocales.get(0);
-            }
+            Locale systemLocale = systemLocales.isEmpty() ? Locale.getDefault() : systemLocales.get(0);
             Log.d(STAMP, "A usar idioma do sistema: " + systemLocale.getLanguage());
             return systemLocale;
-        } else {
-            // Usar idioma selecionado
-            Log.d(STAMP, "A usar idioma selecionado: " + language);
-            return Locale.forLanguageTag(language);
         }
+
+        // Usar idioma selecionado
+        Log.d(STAMP, "A usar idioma selecionado: " + language);
+        return Locale.forLanguageTag(language);
     }
 
     /**

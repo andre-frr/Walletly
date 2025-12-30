@@ -7,7 +7,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -47,17 +46,7 @@ public class EditTransactionActivity extends AppCompatActivity {
         Log.d(STAMP, "onCreate iniciado");
         setContentView(R.layout.activity_edit_transaction);
 
-        // Obter ID da transação
-        mTransactionId = getIntent().getIntExtra(EXTRA_TRANSACTION_ID, -1);
-        if (mTransactionId == -1) {
-            Log.e(STAMP, "ID de transação inválido");
-            Toast.makeText(this, R.string.str_error_loading_transaction, Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        }
-
         init();
-        loadTransaction();
     }
 
     @Override
@@ -79,9 +68,21 @@ public class EditTransactionActivity extends AppCompatActivity {
         mBtnEliminar = findViewById(R.id.idBtnEliminar);
         mUtils = new Utils(this);
 
+        // Validar ID da transação
+        mTransactionId = getIntent().getIntExtra(EXTRA_TRANSACTION_ID, -1);
+        if (mTransactionId == -1) {
+            Log.e(STAMP, "ID de transação inválido");
+            mUtils.showToast(getString(R.string.str_error_loading_transaction));
+            finish();
+            return;
+        }
+
         // Database e Executor
         mDatabase = AppDatabase.getInstance(this);
         mExecutorService = Executors.newSingleThreadExecutor();
+
+        // Carregar dados da transação
+        loadTransaction();
 
         // Comportamentos
         mIbVoltar.setOnClickListener(v -> {
@@ -120,7 +121,7 @@ public class EditTransactionActivity extends AppCompatActivity {
                     populateFields();
                 } else {
                     Log.e(STAMP, "Transação não encontrada");
-                    Toast.makeText(this, R.string.str_error_loading_transaction, Toast.LENGTH_SHORT).show();
+                    mUtils.showToast(getString(R.string.str_error_loading_transaction));
                     finish();
                 }
             });
@@ -176,12 +177,12 @@ public class EditTransactionActivity extends AppCompatActivity {
         String descricao = mEtDesc.getText().toString().trim();
 
         if (valorStr.isEmpty()) {
-            Toast.makeText(this, R.string.str_enter_amount, Toast.LENGTH_SHORT).show();
+            mUtils.showToast(getString(R.string.str_enter_amount));
             return;
         }
 
         if (descricao.isEmpty()) {
-            Toast.makeText(this, R.string.str_enter_description, Toast.LENGTH_SHORT).show();
+            mUtils.showToast(getString(R.string.str_enter_description));
             return;
         }
 
@@ -189,11 +190,11 @@ public class EditTransactionActivity extends AppCompatActivity {
         try {
             valor = Double.parseDouble(valorStr);
             if (valor <= 0) {
-                Toast.makeText(this, R.string.str_amount_must_be_positive, Toast.LENGTH_SHORT).show();
+                mUtils.showToast(getString(R.string.str_amount_must_be_positive));
                 return;
             }
         } catch (NumberFormatException e) {
-            Toast.makeText(this, R.string.str_invalid_amount, Toast.LENGTH_SHORT).show();
+            mUtils.showToast(getString(R.string.str_invalid_amount));
             return;
         }
 
@@ -208,7 +209,7 @@ public class EditTransactionActivity extends AppCompatActivity {
         mExecutorService.execute(() -> {
             mDatabase.movimentoDao().update(mMovimento);
             runOnUiThread(() -> {
-                Toast.makeText(this, R.string.str_transaction_updated, Toast.LENGTH_SHORT).show();
+                mUtils.showToast(getString(R.string.str_transaction_updated));
                 finish();
             });
         });
@@ -228,7 +229,7 @@ public class EditTransactionActivity extends AppCompatActivity {
                     mExecutorService.execute(() -> {
                         mDatabase.movimentoDao().delete(mMovimento);
                         runOnUiThread(() -> {
-                            Toast.makeText(this, R.string.str_transaction_deleted, Toast.LENGTH_SHORT).show();
+                            mUtils.showToast(getString(R.string.str_transaction_deleted));
                             finish();
                         });
                     });
