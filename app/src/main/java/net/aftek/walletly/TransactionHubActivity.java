@@ -26,6 +26,7 @@ public class TransactionHubActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(STAMP, "onCreate iniciado");
+        getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_transaction_hub);
 
         init();

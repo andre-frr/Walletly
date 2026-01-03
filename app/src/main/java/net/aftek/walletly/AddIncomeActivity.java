@@ -39,6 +39,7 @@ public class AddIncomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(STAMP, "onCreate iniciado");
+        getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_add_income);
 
         init();
@@ -53,16 +54,13 @@ public class AddIncomeActivity extends AppCompatActivity {
      * Inicializa os componentes da activity.
      */
     void init() {
-
         // Associações de views
         mIbVoltar = findViewById(R.id.idIbBack);
         mEtValorReceita = findViewById(R.id.idEtValorReceita);
         mEtDescReceita = findViewById(R.id.idEtDescReceita);
         mSpnCategorias = findViewById(R.id.idSpnCategorias);
         mBtnGuardar = findViewById(R.id.idBtnGuardar);
-        mUtils = new Utils(this);
-
-        // Database e Executor
+        mUtils = new Utils(this);        // Database e Executor
         mDatabase = AppDatabase.getInstance(this);
         mExecutorService = Executors.newSingleThreadExecutor();
 

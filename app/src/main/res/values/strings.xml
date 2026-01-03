@@ -113,4 +113,23 @@
     <string name="str_toast_import_error">Erro ao importar dados</string>
     <string name="str_toast_transactions">transações</string>
 
+    <!-- Filter strings -->
+    <string name="str_ib_filter">Filtrar</string>
+    <string name="str_filter_highest_value">Maior Valor</string>
+    <string name="str_filter_lowest_value">Menor Valor</string>
+    <string name="str_filter_newest_first">Mais Recente</string>
+    <string name="str_filter_oldest_first">Mais Antigo</string>
+    <string name="str_filter_value_range">Intervalo de Valores</string>
+    <string name="str_filter_date_range">Intervalo de Datas</string>
+    <string name="str_filter_clear">Limpar Filtros</string>
+    <string name="str_filter_value_range_title">Filtrar por Intervalo de Valores</string>
+    <string name="str_filter_date_range_title">Filtrar por Intervalo de Datas</string>
+    <string name="str_filter_min_value">Valor Mínimo</string>
+    <string name="str_filter_max_value">Valor Máximo</string>
+    <string name="str_filter_start_date">Data Inicial</string>
+    <string name="str_filter_end_date">Data Final</string>
+    <string name="str_btn_apply">Aplicar</string>
+    <string name="str_filter_applied">Filtro aplicado</string>
+    <string name="str_filter_cleared">Filtros removidos</string>
+
 </resources>

@@ -45,11 +45,11 @@ public class MonthlySumActivity extends AppCompatActivity {
     ExecutorService mExecutorService;
     MovimentoAdapter mAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(STAMP, "onCreate iniciado");
+        getWindow().addFlags(android.view.WindowManager.LayoutParams.FLAG_SECURE);
         setContentView(R.layout.activity_monthly_sum);
 
         init();
@@ -63,9 +63,7 @@ public class MonthlySumActivity extends AppCompatActivity {
     /**
      * Inicializa os componentes da activity
      */
-    void init() {
-
-        // Associações de views
+    void init() {        // Associações de views
         mTvReceitas = findViewById(R.id.idTvReceitas);
         mTvDespesas = findViewById(R.id.idTvDespesas);
         mChartMensal = findViewById(R.id.idChartMensal);

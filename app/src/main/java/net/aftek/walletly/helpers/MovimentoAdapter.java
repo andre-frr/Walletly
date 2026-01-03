@@ -13,6 +13,7 @@ import net.aftek.walletly.R;
 import net.aftek.walletly.database.Movimento;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -23,10 +24,12 @@ import java.util.Locale;
 public class MovimentoAdapter extends RecyclerView.Adapter<MovimentoAdapter.MovimentoViewHolder> {
 
     private List<Movimento> mMovimentos;
+    private List<Movimento> mMovimentosFiltered;
     private OnItemLongClickListener mLongClickListener;
 
     public MovimentoAdapter() {
         this.mMovimentos = new ArrayList<>();
+        this.mMovimentosFiltered = new ArrayList<>();
     }
 
     /**
@@ -46,13 +49,13 @@ public class MovimentoAdapter extends RecyclerView.Adapter<MovimentoAdapter.Movi
 
     @Override
     public void onBindViewHolder(@NonNull MovimentoViewHolder holder, int position) {
-        Movimento movimento = mMovimentos.get(position);
+        Movimento movimento = mMovimentosFiltered.get(position);
         holder.bind(movimento, mLongClickListener);
     }
 
     @Override
     public int getItemCount() {
-        return mMovimentos.size();
+        return mMovimentosFiltered.size();
     }
 
     /**
@@ -66,12 +69,94 @@ public class MovimentoAdapter extends RecyclerView.Adapter<MovimentoAdapter.Movi
         List<Movimento> newList = movimentos != null ? movimentos : new ArrayList<>();
 
         // Calcula as diferenças entre a lista antiga e a nova
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MovimentoDiffCallback(this.mMovimentos, newList));
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new MovimentoDiffCallback(this.mMovimentosFiltered, newList));
 
-        // Atualiza a lista
-        this.mMovimentos = newList;
+        // Atualiza as listas
+        this.mMovimentos = new ArrayList<>(newList);
+        this.mMovimentosFiltered = newList;
 
         // Notifica apenas as mudanças específicas com animações
+        diffResult.dispatchUpdatesTo(this);
+    }
+
+    /**
+     * Filtra movimentos por intervalo de valores
+     */
+    public void filterByValueRange(double minValue, double maxValue) {
+        List<Movimento> filtered = new ArrayList<>();
+        for (Movimento m : mMovimentos) {
+            double valor = Math.abs(m.getValor());
+            if (valor >= minValue && valor <= maxValue) {
+                filtered.add(m);
+            }
+        }
+        updateFilteredList(filtered);
+    }
+
+    /**
+     * Filtra movimentos por intervalo de datas
+     */
+    public void filterByDateRange(long startDate, long endDate) {
+        List<Movimento> filtered = new ArrayList<>();
+        for (Movimento m : mMovimentos) {
+            long data = m.getData();
+            if (data >= startDate && data <= endDate) {
+                filtered.add(m);
+            }
+        }
+        updateFilteredList(filtered);
+    }
+
+    /**
+     * Ordena por maior valor
+     */
+    public void sortByHighestValue() {
+        List<Movimento> sorted = new ArrayList<>(mMovimentos);
+        sorted.sort(Comparator.comparingDouble((Movimento m) -> Math.abs(m.getValor())).reversed());
+        updateFilteredList(sorted);
+    }
+
+    /**
+     * Ordena por menor valor
+     */
+    public void sortByLowestValue() {
+        List<Movimento> sorted = new ArrayList<>(mMovimentos);
+        sorted.sort(Comparator.comparingDouble(m -> Math.abs(m.getValor())));
+        updateFilteredList(sorted);
+    }
+
+    /**
+     * Ordena por data mais recente primeiro
+     */
+    public void sortByNewest() {
+        List<Movimento> sorted = new ArrayList<>(mMovimentos);
+        sorted.sort(Comparator.comparingLong(Movimento::getData).reversed());
+        updateFilteredList(sorted);
+    }
+
+    /**
+     * Ordena por data mais antiga primeiro
+     */
+    public void sortByOldest() {
+        List<Movimento> sorted = new ArrayList<>(mMovimentos);
+        sorted.sort(Comparator.comparingLong(Movimento::getData));
+        updateFilteredList(sorted);
+    }
+
+    /**
+     * Limpa todos os filtros
+     */
+    public void clearFilters() {
+        updateFilteredList(new ArrayList<>(mMovimentos));
+    }
+
+    /**
+     * Atualiza a lista filtrada e notifica mudanças
+     */
+    private void updateFilteredList(List<Movimento> newFiltered) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(
+                new MovimentoDiffCallback(this.mMovimentosFiltered, newFiltered));
+        this.mMovimentosFiltered = newFiltered;
         diffResult.dispatchUpdatesTo(this);
     }
 

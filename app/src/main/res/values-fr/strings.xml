@@ -105,4 +105,23 @@
     <string name="str_toast_import_error">Erreur lors de l\'importation des données</string>
     <string name="str_toast_transactions">transactions</string>
 
+    <!-- Filter strings -->
+    <string name="str_ib_filter">Filtrer</string>
+    <string name="str_filter_highest_value">Valeur la plus élevée</string>
+    <string name="str_filter_lowest_value">Valeur la plus basse</string>
+    <string name="str_filter_newest_first">Plus récent</string>
+    <string name="str_filter_oldest_first">Plus ancien</string>
+    <string name="str_filter_value_range">Plage de valeurs</string>
+    <string name="str_filter_date_range">Plage de dates</string>
+    <string name="str_filter_clear">Effacer les filtres</string>
+    <string name="str_filter_value_range_title">Filtrer par plage de valeurs</string>
+    <string name="str_filter_date_range_title">Filtrer par plage de dates</string>
+    <string name="str_filter_min_value">Valeur minimale</string>
+    <string name="str_filter_max_value">Valeur maximale</string>
+    <string name="str_filter_start_date">Date de début</string>
+    <string name="str_filter_end_date">Date de fin</string>
+    <string name="str_btn_apply">Appliquer</string>
+    <string name="str_filter_applied">Filtre appliqué</string>
+    <string name="str_filter_cleared">Filtres effacés</string>
+
 </resources>

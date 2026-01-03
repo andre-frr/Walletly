@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_sort_highest"
+        android:title="@string/str_filter_highest_value" />
+    <item
+        android:id="@+id/menu_sort_lowest"
+        android:title="@string/str_filter_lowest_value" />
+    <item
+        android:id="@+id/menu_sort_newest"
+        android:title="@string/str_filter_newest_first" />
+    <item
+        android:id="@+id/menu_sort_oldest"
+        android:title="@string/str_filter_oldest_first" />
+    <item
+        android:id="@+id/menu_filter_value_range"
+        android:title="@string/str_filter_value_range" />
+    <item
+        android:id="@+id/menu_filter_date_range"
+        android:title="@string/str_filter_date_range" />
+    <item
+        android:id="@+id/menu_filter_clear"
+        android:title="@string/str_filter_clear" />
+</menu>
+
