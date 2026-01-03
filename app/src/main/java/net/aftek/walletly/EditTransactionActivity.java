@@ -92,6 +92,7 @@ public class EditTransactionActivity extends AppCompatActivity {
         mIbVoltar.setOnClickListener(v -> {
             Log.d(STAMP, "Botão voltar clicado");
             finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
 
         mBtnGuardar.setOnClickListener(v -> {
@@ -235,6 +236,7 @@ public class EditTransactionActivity extends AppCompatActivity {
                         runOnUiThread(() -> {
                             mUtils.showToast(getString(R.string.str_transaction_deleted));
                             finish();
+                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         });
                     });
                     Log.d(STAMP, "Transação eliminada: " + mTransactionId);

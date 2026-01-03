@@ -86,13 +86,15 @@ public class MonthlySumActivity extends AppCompatActivity {
         // Comportamentos
         mIbVoltar.setOnClickListener(v -> {
             Log.d(STAMP, "Botão voltar clicado");
-            mUtils.navigateToMain();
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
 
         mCardMovimentos.setOnClickListener(v -> {
             Log.d(STAMP, "Navegando para histórico completo");
             Intent intent = new Intent(MonthlySumActivity.this, HistoryActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
     }
 

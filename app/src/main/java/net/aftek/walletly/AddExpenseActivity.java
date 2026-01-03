@@ -72,7 +72,8 @@ public class AddExpenseActivity extends AppCompatActivity {
         // Comportamentos
         mIbVoltar.setOnClickListener(v -> {
             Log.d(STAMP, "Botão voltar clicado - navegando para TransactionHub");
-            mUtils.navigateToTransactionHub();
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
 
         mBtnGuardar.setOnClickListener(v -> {

@@ -52,12 +52,14 @@ public class TransactionHubActivity extends AppCompatActivity {
             Log.d(STAMP, "Navegando para adicionar receita");
             Intent intent = new Intent(TransactionHubActivity.this, AddIncomeActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
         mBtnAddExpense.setOnClickListener(v -> {
             Log.d(STAMP, "Navegando para adicionar despesa");
             Intent intent = new Intent(TransactionHubActivity.this, AddExpenseActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
         // Configurar barra de navegação

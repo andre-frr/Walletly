@@ -82,6 +82,7 @@ public class HistoryActivity extends AppCompatActivity {
             Intent intent = new Intent(HistoryActivity.this, EditTransactionActivity.class);
             intent.putExtra(EditTransactionActivity.EXTRA_TRANSACTION_ID, movimento.getId());
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
         // Carregar todas as transações usando Utils
@@ -90,7 +91,8 @@ public class HistoryActivity extends AppCompatActivity {
         // Comportamentos
         mIbVoltar.setOnClickListener(v -> {
             Log.d(STAMP, "Botão voltar clicado");
-            mUtils.navigateToMain();
+            finish();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
 
         mIbFilter.setOnClickListener(v -> {

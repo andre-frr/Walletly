@@ -79,12 +79,14 @@ public class MainActivity extends AppCompatActivity {
             Log.d(STAMP, "Navegando para resumo mensal");
             Intent intent = new Intent(MainActivity.this, MonthlySumActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
         mCardMovimentos.setOnClickListener(v -> {
             Log.d(STAMP, "Navegando para histórico completo");
             Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
         // Configurar barra de navegação

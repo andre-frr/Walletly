@@ -264,6 +264,7 @@ public class Utils {
     public void navigateToMain() {
         Intent intent = new Intent(mA, MainActivity.class);
         mA.startActivity(intent);
+        mA.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     /**
@@ -273,6 +274,7 @@ public class Utils {
         Log.d(STAMP, "Navegando para TransactionHub");
         Intent intent = new Intent(mA, TransactionHubActivity.class);
         mA.startActivity(intent);
+        mA.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         mA.finish();
     }
 
@@ -307,29 +309,60 @@ public class Utils {
 
         bottomNav.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
+            int currentPosition = getNavigationPosition(selectedItemId);
+            int targetPosition = getNavigationPosition(itemId);
 
             if (itemId == R.id.nav_home && !(mA instanceof MainActivity)) {
                 Log.d(STAMP, "Navegação: Home");
                 Intent intent = new Intent(mA, MainActivity.class);
                 mA.startActivity(intent);
+                applyNavigationTransition(currentPosition, targetPosition);
                 mA.finish();
                 return true;
             } else if (itemId == R.id.nav_transactions && !(mA instanceof TransactionHubActivity)) {
                 Log.d(STAMP, "Navegação: In & Out");
                 Intent intent = new Intent(mA, TransactionHubActivity.class);
                 mA.startActivity(intent);
+                applyNavigationTransition(currentPosition, targetPosition);
                 mA.finish();
                 return true;
             } else if (itemId == R.id.nav_settings && !(mA instanceof SettingsActivity)) {
                 Log.d(STAMP, "Navegação: Definições");
                 Intent intent = new Intent(mA, SettingsActivity.class);
                 mA.startActivity(intent);
+                applyNavigationTransition(currentPosition, targetPosition);
                 mA.finish();
                 return true;
             }
 
             return false;
         });
+    }
+
+    /**
+     * Retorna a posição numérica do item de navegação
+     * Home = 0, In & Out = 1, Settings = 2
+     */
+    private int getNavigationPosition(int itemId) {
+        if (itemId == R.id.nav_home) return 0;
+        if (itemId == R.id.nav_transactions) return 1;
+        if (itemId == R.id.nav_settings) return 2;
+        return 0;
+    }
+
+    /**
+     * Aplica a transição apropriada baseada na direção da navegação
+     * Se navegando para a direita (aumentando posição) -> slide da direita
+     * Se navegando para a esquerda (diminuindo posição) -> slide da esquerda
+     */
+    private void applyNavigationTransition(int fromPosition, int toPosition) {
+        if (toPosition > fromPosition) {
+            // Navegando para a direita (Home -> In&Out -> Settings)
+            mA.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        } else {
+            // Navegando para a esquerda (Settings -> In&Out -> Home)
+            mA.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        }
     }
 
     /**
