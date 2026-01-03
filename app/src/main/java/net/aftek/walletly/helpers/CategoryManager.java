@@ -1,6 +1,8 @@
-package net.aftek.walletly;
+package net.aftek.walletly.helpers;
 
 import android.content.Context;
+
+import net.aftek.walletly.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +40,10 @@ public class CategoryManager {
     }
 
     /**
-     * Obtém a lista de categorias de despesas
+     * Obtém a lista de categorias de despesas.
      *
-     * @param context Contexto para aceder aos recursos de strings
-     * @return Lista de categorias de despesa
+     * @param context contexto para aceder aos recursos de strings
+     * @return lista de categorias de despesa
      */
     public static List<String> getExpenseCategories(Context context) {
         List<String> categorias = new ArrayList<>();

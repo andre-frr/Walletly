@@ -46,7 +46,7 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     /**
-     * Obtém o DAO para operações com movimentos
+     * Obtém o DAO para operações com movimentos.
      *
      * @return MovimentoDao para acesso à tabela de movimentos
      */

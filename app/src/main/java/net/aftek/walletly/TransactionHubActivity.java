@@ -7,6 +7,9 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import net.aftek.walletly.helpers.LocaleHelper;
+import net.aftek.walletly.helpers.Utils;
+
 /**
  * Activity hub para adicionar transações - centro de navegação para adicionar receitas ou despesas
  */
@@ -34,7 +37,7 @@ public class TransactionHubActivity extends AppCompatActivity {
     }
 
     /**
-     * Inicializa os componentes da activity
+     * Inicializa os componentes da activity.
      */
     void init() {
 

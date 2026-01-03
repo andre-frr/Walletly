@@ -1,4 +1,4 @@
-package net.aftek.walletly;
+package net.aftek.walletly.helpers;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -77,7 +77,7 @@ public class LocaleHelper {
      */
     private static Locale getLocaleFromLanguageCode(String language) {
         if (LANGUAGE_SYSTEM.equals(language)) {
-            // Usar idioma do sistema (minSdk 24+)
+            // Usar idioma do sistema
             LocaleList systemLocales = Resources.getSystem().getConfiguration().getLocales();
             Locale systemLocale = systemLocales.isEmpty() ? Locale.getDefault() : systemLocales.get(0);
             Log.d(STAMP, "A usar idioma do sistema: " + systemLocale.getLanguage());
@@ -90,10 +90,10 @@ public class LocaleHelper {
     }
 
     /**
-     * Atualiza os recursos da aplicação com o idioma especificado
+     * Atualiza os recursos da aplicação com o idioma especificado.
      *
-     * @param context  Contexto da aplicação
-     * @param language Código do idioma a aplicar
+     * @param context  contexto da aplicação
+     * @param language código do idioma a aplicar
      * @return Context atualizado
      */
     private static Context updateResources(Context context, String language) {
@@ -103,7 +103,6 @@ public class LocaleHelper {
         Resources resources = context.getResources();
         Configuration config = new Configuration(resources.getConfiguration());
 
-        // minSdk 24+ (Android N)
         config.setLocale(locale);
         LocaleList localeList = new LocaleList(locale);
         LocaleList.setDefault(localeList);

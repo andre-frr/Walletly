@@ -1,4 +1,4 @@
-package net.aftek.walletly;
+package net.aftek.walletly.helpers;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,6 +10,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
+import net.aftek.walletly.R;
 import net.aftek.walletly.database.Movimento;
 
 import java.util.ArrayList;
@@ -18,26 +19,26 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Helper para configuração e atualização de gráficos
+ * Helper para configuração e atualização de gráficos.
  */
 public class ChartHelper {
 
     private static final String STAMP = "@ChartHelper";
 
     /**
-     * Construtor privado para prevenir instanciação desta classe utilitária
+     * Construtor privado para prevenir instanciação desta classe utilitária.
      */
     private ChartHelper() {
         throw new UnsupportedOperationException("Utility class cannot be instantiated");
     }
 
     /**
-     * Atualiza o gráfico com os saldos diários do mês
-     * Calcula o saldo acumulado dia a dia e exibe no gráfico de linha
+     * Atualiza o gráfico com os saldos diários do mês.
+     * Calcula o saldo acumulado dia a dia e exibe no gráfico de linha.
      *
-     * @param chart      Gráfico a atualizar
-     * @param movimentos Lista de movimentos do mês
-     * @param context    Contexto para aceder aos recursos
+     * @param chart      gráfico a atualizar
+     * @param movimentos lista de movimentos do mês
+     * @param context    contexto para aceder aos recursos
      */
     public static void updateMonthlyChart(LineChart chart, List<Movimento> movimentos, Context context) {
         Log.d(STAMP, "Atualizando gráfico com " + movimentos.size() + " movimentos do mês");
@@ -55,11 +56,11 @@ public class ChartHelper {
     }
 
     /**
-     * Calcula os saldos diários a partir dos movimentos
-     * Processa todas as transações e calcula o saldo acumulado para cada dia
+     * Calcula os saldos diários a partir dos movimentos.
+     * Processa todas as transações e calcula o saldo acumulado para cada dia.
      *
-     * @param movimentos Lista de movimentos a processar
-     * @return Lista de entradas para o gráfico
+     * @param movimentos lista de movimentos a processar
+     * @return lista de entradas para o gráfico
      */
     private static List<Entry> calculateDailyBalances(List<Movimento> movimentos) {
         List<Entry> entries = new ArrayList<>();
@@ -145,12 +146,12 @@ public class ChartHelper {
     }
 
     /**
-     * Configura o gráfico com os dados e estilos
-     * Define interatividade, eixos e animações
+     * Configura o gráfico com os dados e estilos.
+     * Define interatividade, eixos e animações.
      *
-     * @param chart    Gráfico a configurar
-     * @param lineData Dados a exibir
-     * @param context  Contexto para aceder aos recursos
+     * @param chart    gráfico a configurar
+     * @param lineData dados a exibir
+     * @param context  contexto para aceder aos recursos
      */
     private static void configureChart(LineChart chart, LineData lineData, Context context) {
         // Definir dados

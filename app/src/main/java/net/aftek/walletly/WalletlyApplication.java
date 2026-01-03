@@ -7,6 +7,8 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import net.aftek.walletly.helpers.LocaleHelper;
+
 /**
  * Classe Application customizada para inicialização global da app
  * Carrega o tema e idioma salvos nas preferências do utilizador
@@ -34,10 +36,10 @@ public class WalletlyApplication extends Application {
     }
 
     /**
-     * Anexa o contexto base com o locale configurado
-     * Chamado antes de onCreate() para garantir que o idioma correto é aplicado
+     * Anexa o contexto base com o locale configurado.
+     * Chamado antes de onCreate() para garantir que o idioma correto é aplicado.
      *
-     * @param base Contexto base da aplicação
+     * @param base contexto base da aplicação
      */
     @Override
     protected void attachBaseContext(Context base) {

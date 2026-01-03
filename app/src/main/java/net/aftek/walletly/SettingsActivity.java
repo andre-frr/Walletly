@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import net.aftek.walletly.database.AppDatabase;
+import net.aftek.walletly.helpers.LocaleHelper;
+import net.aftek.walletly.helpers.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +59,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     /**
-     * Inicializa os componentes da activity
+     * Inicializa os componentes da activity.
      */
     void init() {
         mUtils = new Utils(this);
@@ -287,9 +289,9 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     /**
-     * Aplica o idioma selecionado e reinicia a activity
+     * Aplica o idioma selecionado e reinicia a activity.
      *
-     * @param languageCode Código do idioma a aplicar
+     * @param languageCode código do idioma a aplicar
      */
     private void applyLanguage(String languageCode) {
         // Verificar se o idioma realmente mudou

@@ -14,6 +14,10 @@ import com.google.android.material.card.MaterialCardView;
 
 import net.aftek.walletly.database.AppDatabase;
 import net.aftek.walletly.database.Movimento;
+import net.aftek.walletly.helpers.ChartHelper;
+import net.aftek.walletly.helpers.LocaleHelper;
+import net.aftek.walletly.helpers.MovimentoAdapter;
+import net.aftek.walletly.helpers.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -198,10 +202,10 @@ public class MonthlySumActivity extends AppCompatActivity {
     }
 
     /**
-     * Atualiza o gráfico com os saldos diários do mês
-     * Lógica complexa delegada á classe ChartHelper
+     * Atualiza o gráfico com os saldos diários do mês.
+     * Lógica complexa delegada à classe ChartHelper.
      *
-     * @param movimentos Lista de movimentos do mês atual
+     * @param movimentos lista de movimentos do mês atual
      */
     private void updateChartWithTransactions(List<Movimento> movimentos) {
         ChartHelper.updateMonthlyChart(mChartMensal, movimentos, this);

@@ -10,6 +10,9 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import net.aftek.walletly.database.AppDatabase;
+import net.aftek.walletly.helpers.CategoryManager;
+import net.aftek.walletly.helpers.LocaleHelper;
+import net.aftek.walletly.helpers.Utils;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -47,7 +50,7 @@ public class AddIncomeActivity extends AppCompatActivity {
     }
 
     /**
-     * Inicializa os componentes da activity
+     * Inicializa os componentes da activity.
      */
     void init() {
 

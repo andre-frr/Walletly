@@ -1,4 +1,4 @@
-package net.aftek.walletly;
+package net.aftek.walletly.helpers;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -17,9 +17,15 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import net.aftek.walletly.MainActivity;
+import net.aftek.walletly.R;
+import net.aftek.walletly.SettingsActivity;
+import net.aftek.walletly.TransactionHubActivity;
 import net.aftek.walletly.database.AppDatabase;
 import net.aftek.walletly.database.Movimento;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.jspecify.annotations.NonNull;
 
 import java.io.OutputStream;
@@ -57,6 +63,21 @@ public class Utils {
     public static String formatTimestamp(long timestamp) {
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss", java.util.Locale.getDefault());
         return sdf.format(new java.util.Date(timestamp));
+    }
+
+    @androidx.annotation.NonNull
+    private static JSONArray getJsonArray(List<Movimento> allMovimentos) throws JSONException {
+        JSONArray jsonArray = new JSONArray();
+        for (Movimento m : allMovimentos) {
+            org.json.JSONObject obj = new org.json.JSONObject();
+            obj.put("tipo", m.getTipo());
+            obj.put("valor", m.getValor());
+            obj.put("descricao", m.getDescricao());
+            obj.put("data", m.getData());
+            obj.put("categoria", m.getCategoria());
+            jsonArray.put(obj);
+        }
+        return jsonArray;
     }
 
     /**
@@ -269,7 +290,7 @@ public class Utils {
 
     /**
      * Configura a barra de navegação inferior
-     * Gerencia a navegação entre as 3 activities principais: Home, In & Out, Definições
+     * Gere a navegação entre as 3 activities principais: Home, In & Out, Definições
      *
      * @param selectedItemId ID do item atualmente selecionado na navegação
      */
@@ -323,25 +344,11 @@ public class Utils {
                 List<Movimento> allMovimentos = database.movimentoDao().getAll();
 
                 // Converter para JSON
-                org.json.JSONArray jsonArray = new org.json.JSONArray();
-                for (Movimento m : allMovimentos) {
-                    org.json.JSONObject obj = new org.json.JSONObject();
-                    obj.put("tipo", m.getTipo());
-                    obj.put("valor", m.getValor());
-                    obj.put("descricao", m.getDescricao());
-                    obj.put("data", m.getData());
-                    obj.put("categoria", m.getCategoria());
-                    jsonArray.put(obj);
-                }
+                JSONArray jsonArray = getJsonArray(allMovimentos);
 
                 String filename = "walletly_backup_" + System.currentTimeMillis() + ".json";
                 String jsonContent = jsonArray.toString(2);
-
-                // Save to Downloads folder using MediaStore API
-                // Android 13+ (API 33+) - No permissions needed
-                // Android 10-12 (API 29-32) - Requires WRITE_EXTERNAL_STORAGE permission
-                // The permission check is done in SettingsActivity before calling this method
-                saveToDownloadsModern(filename, jsonContent, allMovimentos.size());
+                saveToDownloads(filename, jsonContent, allMovimentos.size());
 
             } catch (Exception e) {
                 Log.e(STAMP, "Erro ao exportar dados: " + e.getMessage());
@@ -351,9 +358,9 @@ public class Utils {
     }
 
     /**
-     * Save file to Downloads folder using MediaStore (Android 10+)
+     * Guarda ficheiros na pasta Downloads usando MediaStore
      */
-    private void saveToDownloadsModern(String filename, String content, int count) {
+    private void saveToDownloads(String filename, String content, int count) {
         try {
             ContentResolver resolver = mA.getContentResolver();
             ContentValues contentValues = new ContentValues();
@@ -375,17 +382,17 @@ public class Utils {
                 }
             }
         } catch (Exception e) {
-            Log.e(STAMP, "Erro ao exportar dados (modern): " + e.getMessage());
+            Log.e(STAMP, "Erro ao exportar dados: " + e.getMessage());
             mA.runOnUiThread(() -> showToast(mA.getString(R.string.str_toast_export_error)));
         }
     }
 
     /**
-     * Importa transações de um arquivo JSON
+     * Importa transações de um arquivo JSON.
      *
      * @param fileUri         URI do arquivo a importar
-     * @param database        Instância da base de dados
-     * @param executorService Executor para background thread
+     * @param database        instância da base de dados
+     * @param executorService executor para background thread
      */
     public void importTransactions(android.net.Uri fileUri, AppDatabase database, ExecutorService executorService) {
         executorService.execute(() -> {

@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.aftek.walletly.database.AppDatabase;
+import net.aftek.walletly.helpers.LocaleHelper;
+import net.aftek.walletly.helpers.MovimentoAdapter;
+import net.aftek.walletly.helpers.Utils;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -43,7 +46,7 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     /**
-     * Inicializa os componentes da activity
+     * Inicializa os componentes da activity.
      */
     void init() {
 

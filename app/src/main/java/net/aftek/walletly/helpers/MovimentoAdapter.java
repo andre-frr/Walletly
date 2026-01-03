@@ -1,4 +1,4 @@
-package net.aftek.walletly;
+package net.aftek.walletly.helpers;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import net.aftek.walletly.R;
 import net.aftek.walletly.database.Movimento;
 
 import java.util.ArrayList;
@@ -125,7 +126,7 @@ public class MovimentoAdapter extends RecyclerView.Adapter<MovimentoAdapter.Movi
     }
 
     /**
-     * ViewHolder para cada item de movimento na lista
+     * ViewHolder para cada item de movimento na lista.
      */
     public static class MovimentoViewHolder extends RecyclerView.ViewHolder {
 
@@ -141,10 +142,10 @@ public class MovimentoAdapter extends RecyclerView.Adapter<MovimentoAdapter.Movi
         }
 
         /**
-         * Preenche os dados do movimento no layout
+         * Preenche os dados do movimento no layout.
          *
-         * @param movimento         Movimento a ser exibido
-         * @param longClickListener Listener para clique longo
+         * @param movimento         movimento a ser exibido
+         * @param longClickListener listener para clique longo
          */
         public void bind(Movimento movimento, OnItemLongClickListener longClickListener) {
             // Definir descrição

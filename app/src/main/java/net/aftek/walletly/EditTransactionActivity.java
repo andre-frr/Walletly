@@ -12,13 +12,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import net.aftek.walletly.database.AppDatabase;
 import net.aftek.walletly.database.Movimento;
+import net.aftek.walletly.helpers.CategoryManager;
+import net.aftek.walletly.helpers.LocaleHelper;
+import net.aftek.walletly.helpers.Utils;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Activity para editar transações existentes (receitas ou despesas)
+ * Activity para editar transações existentes (receitas ou despesas).
  */
 public class EditTransactionActivity extends AppCompatActivity {
 
@@ -55,7 +58,7 @@ public class EditTransactionActivity extends AppCompatActivity {
     }
 
     /**
-     * Inicializa os componentes da activity
+     * Inicializa os componentes da activity.
      */
     void init() {
         // Associações de views
@@ -218,7 +221,7 @@ public class EditTransactionActivity extends AppCompatActivity {
     }
 
     /**
-     * Elimina a transação da base de dados
+     * Elimina a transação da base de dados.
      */
     private void deleteTransaction() {
         // Confirmar eliminação
