@@ -22,4 +22,3 @@
         android:id="@+id/menu_filter_clear"
         android:title="@string/str_filter_clear" />
 </menu>
-

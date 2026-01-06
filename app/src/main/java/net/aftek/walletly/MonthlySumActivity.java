@@ -63,7 +63,8 @@ public class MonthlySumActivity extends AppCompatActivity {
     /**
      * Inicializa os componentes da activity
      */
-    void init() {        // Associações de views
+    void init() {
+        // Associações de views
         mTvReceitas = findViewById(R.id.idTvReceitas);
         mTvDespesas = findViewById(R.id.idTvDespesas);
         mChartMensal = findViewById(R.id.idChartMensal);

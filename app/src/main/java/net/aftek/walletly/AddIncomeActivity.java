@@ -60,7 +60,9 @@ public class AddIncomeActivity extends AppCompatActivity {
         mEtDescReceita = findViewById(R.id.idEtDescReceita);
         mSpnCategorias = findViewById(R.id.idSpnCategorias);
         mBtnGuardar = findViewById(R.id.idBtnGuardar);
-        mUtils = new Utils(this);        // Database e Executor
+        mUtils = new Utils(this);
+
+        // Database e Executor
         mDatabase = AppDatabase.getInstance(this);
         mExecutorService = Executors.newSingleThreadExecutor();
 
