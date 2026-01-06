@@ -90,3 +90,5 @@ Desktop.ini
 *.tmp
 *.orig
 
+# Copilot Instructions
+.github
