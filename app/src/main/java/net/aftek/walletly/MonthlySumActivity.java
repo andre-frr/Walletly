@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.github.mikephil.charting.charts.LineChart;
 import com.google.android.material.card.MaterialCardView;
 
+import net.aftek.walletly.adapters.MovimentoAdapter;
 import net.aftek.walletly.database.AppDatabase;
 import net.aftek.walletly.database.Movimento;
 import net.aftek.walletly.helpers.ChartHelper;
 import net.aftek.walletly.helpers.LocaleHelper;
-import net.aftek.walletly.helpers.MovimentoAdapter;
 import net.aftek.walletly.helpers.Utils;
 
 import java.util.ArrayList;

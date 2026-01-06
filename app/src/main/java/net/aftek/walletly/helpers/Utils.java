@@ -21,6 +21,7 @@ import net.aftek.walletly.MainActivity;
 import net.aftek.walletly.R;
 import net.aftek.walletly.SettingsActivity;
 import net.aftek.walletly.TransactionHubActivity;
+import net.aftek.walletly.adapters.MovimentoAdapter;
 import net.aftek.walletly.database.AppDatabase;
 import net.aftek.walletly.database.Movimento;
 

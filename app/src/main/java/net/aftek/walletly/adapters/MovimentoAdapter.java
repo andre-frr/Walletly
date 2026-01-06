@@ -1,4 +1,4 @@
-package net.aftek.walletly.helpers;
+package net.aftek.walletly.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import net.aftek.walletly.R;
 import net.aftek.walletly.database.Movimento;
+import net.aftek.walletly.helpers.Utils;
 
 import java.util.ArrayList;
 import java.util.Comparator;

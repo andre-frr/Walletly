@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 
+import net.aftek.walletly.adapters.MovimentoAdapter;
 import net.aftek.walletly.database.AppDatabase;
 import net.aftek.walletly.helpers.LocaleHelper;
-import net.aftek.walletly.helpers.MovimentoAdapter;
 import net.aftek.walletly.helpers.Utils;
 
 import java.util.concurrent.ExecutorService;
